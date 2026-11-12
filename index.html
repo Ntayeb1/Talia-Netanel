@@ -4,6 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>טליה & נתנאל</title>
+<meta name="description" content="יום חמישי, 25.2.2027 · יער - מושב אורה · לחצו לאישור הגעה">
+<meta property="og:type" content="website">
+<meta property="og:title" content="טליה & נתנאל מתחתנים 💍">
+<meta property="og:description" content="יום חמישי, 25.2.2027 · יער - מושב אורה · לחצו לאישור הגעה">
+<meta property="og:image" content="https://ntayeb1.github.io/Talia-Netanel/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Frank+Ruhl+Libre:wght@400;500;700&family=Heebo:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -123,6 +131,7 @@
   .loading { min-height:80vh; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; color:var(--muted); }
   .loading .ring { width:34px; height:34px; border:2px solid var(--line); border-top-color:var(--gold); border-radius:50%; animation:spin 1s linear infinite; }
   @keyframes spin { to { transform:rotate(360deg); } }
+  .nudge { display:none; background:var(--gold-soft); border:1px solid #e6d7bd; color:#7a5f36; border-radius:4px; padding:12px 14px; text-align:center; font-size:15px; margin:-10px 0 22px; line-height:1.5; }
   .langs { position:fixed; top:10px; inset-inline-end:10px; z-index:60; display:flex; gap:2px; background:rgba(255,255,255,.92); border:1px solid var(--line); border-radius:20px; padding:3px; box-shadow:0 2px 10px rgba(0,0,0,.06); }
   .langs button { border:0; background:none; padding:5px 10px; border-radius:16px; font-size:12px; color:var(--muted); cursor:pointer; letter-spacing:.5px; }
   .langs button.on { background:var(--ink); color:#fff; }
@@ -142,6 +151,7 @@
       <h1 data-t="hosts"></h1>
     </div>
     <div class="prog"><i id="bar" style="width:25%"></i></div>
+    <div class="nudge" id="nudge" data-t="nudge"></div>
 
     <div class="step on" id="s1">
       <span class="tag" data-t="tag_rsvp"></span>
@@ -270,6 +280,8 @@
       date: 'יום חמישי, י״ט באדר א׳ תשפ״ז · 25.2.2027',
       venue: 'יער - מושב אורה',
       tag_rsvp: 'אישור הגעה',
+      nudge: 'עוד לא שמענו ממך 🙂 נשמח לתשובה, זה לוקח 10 שניות',
+      nudge_p: 'עוד לא שמענו מכם 🙂 נשמח לתשובה, זה לוקח 10 שניות',
       greet: '{name}, תגיע/י לחגוג איתנו?',
       greet_p: '{name}, תגיעו לחגוג איתנו?',
       yes_txt_p: 'מגיעים לחגוג את האיחוד ההיסטורי בין ישראל לפולין',
@@ -315,6 +327,7 @@
       date: 'Thursday, February 25, 2027',
       venue: "Ya'ar – Moshav Ora",
       tag_rsvp: 'RSVP',
+      nudge: "We haven't heard from you yet 🙂 It only takes 10 seconds",
       greet: '{name}, will you celebrate with us?',
       yes_txt_p: "We're coming to celebrate the historic union of Israel and Poland",
       no_txt_p: "We can't make it, but sending huge hugs",
@@ -358,6 +371,8 @@
       date: 'Czwartek, 25 lutego 2027',
       venue: "Ya'ar – moszaw Ora",
       tag_rsvp: 'Potwierdzenie obecności',
+      nudge: 'Jeszcze nie dostaliśmy od Ciebie odpowiedzi 🙂 To zajmie tylko 10 sekund',
+      nudge_p: 'Jeszcze nie dostaliśmy od Was odpowiedzi 🙂 To zajmie tylko 10 sekund',
       greet: '{name}, czy będziesz świętować z nami?',
       greet_p: '{name}, czy będziecie świętować z nami?',
       yes_txt_p: 'Z radością będziemy z Wami w tym wyjątkowym dniu!',
@@ -493,6 +508,7 @@
       for (var i = 1; i <= 4; i++) $('s' + i).classList.toggle('on', i === n);
       $('bar').style.width = (n * 25) + '%';
       $('back').style.visibility = (n > 1 && n < 4) ? 'visible' : 'hidden';
+      $('nudge').style.display = (n === 1 && params.get('r') && !st.done && !g.status) ? 'block' : 'none';
       txt('err', '');
       window.scrollTo(0, 0);
     }
@@ -590,7 +606,7 @@
     } else {
       counterUpd.forEach(function (f) { f(); });
       r1(); r2();
-      show('rsvp');
+      show('rsvp'); go(1);
     }
   }
 </script>
