@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>טליה & נתנאל</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Frank+Ruhl+Libre:wght@400;500;700&family=Heebo:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --gold:#b08d57; --gold-soft:#f4ede1; --ink:#2f2a24; --muted:#8a8073; --line:#e9e1d4; --bg:#faf7f2; --paper:#fffdf9; }
+  * { box-sizing:border-box; }
+  html, body { margin:0; background:var(--bg); color:var(--ink); font-family:"Heebo",Arial,sans-serif; font-weight:400; }
+  button { font-family:inherit; }
+  .serif { font-family:"Frank Ruhl Libre",serif; }
+  .latin { font-family:"Cormorant Garamond",serif; }
+
+  /* ניווט סקיצה */
+  .switch { position:sticky; top:0; z-index:50; display:flex; justify-content:center; gap:6px; padding:8px; background:rgba(250,247,242,.92); backdrop-filter:blur(6px); border-bottom:1px solid var(--line); }
+  .switch button { border:1px solid var(--line); background:#fff; border-radius:20px; padding:6px 14px; font-size:13px; color:var(--muted); cursor:pointer; }
+  .switch button.on { background:var(--ink); color:#fff; border-color:var(--ink); }
+  .view { display:none; } .view.on { display:block; }
+
+  /* ===== תהליך אישור ===== */
+  .flow { max-width:480px; margin:0 auto; padding:26px 20px 50px; }
+  .flow-head { text-align:center; position:relative; }
+  .flow-head h1 { font-family:"Frank Ruhl Libre",serif; font-weight:500; font-size:28px; margin:0; letter-spacing:.5px; }
+  .backbtn { position:absolute; left:0; top:4px; background:none; border:0; font-size:22px; color:var(--ink); cursor:pointer; visibility:hidden; }
+  .prog { height:2px; background:var(--line); margin:16px 0 30px; position:relative; }
+  .prog i { position:absolute; right:0; top:0; height:2px; background:var(--gold); transition:width .35s; }
+  .tag { display:table; margin:0 auto 12px; font-size:13px; color:var(--gold); background:var(--gold-soft); padding:4px 12px; border-radius:20px; }
+  .q { font-family:"Frank Ruhl Libre",serif; font-weight:500; font-size:26px; text-align:center; margin:0 0 8px; }
+  .meta { text-align:center; color:var(--muted); font-size:15px; line-height:1.6; margin-bottom:24px; }
+  .opts { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .opt { background:#fff; border:1px solid var(--line); border-radius:4px; padding:22px 8px 18px; cursor:pointer; text-align:center; font-size:16px; font-weight:500; color:var(--ink); transition:all .15s; }
+  .opt .ic { display:block; font-size:24px; margin-bottom:8px; color:var(--gold); }
+  .opt.sel { border-color:var(--gold); background:var(--gold-soft); box-shadow:inset 0 0 0 1px var(--gold); }
+  .opts.stack { grid-template-columns:1fr; }
+  .opts.stack .opt { padding:18px 18px; line-height:1.5; font-size:16px; }
+  .opt .big { display:block; font-family:"Cormorant Garamond",serif; font-size:26px; font-weight:500; margin-bottom:2px; }
+  .sep { display:flex; align-items:center; gap:12px; color:var(--muted); font-size:14px; margin:26px 0 14px; }
+  .sep:before, .sep:after { content:""; flex:1; height:1px; background:var(--line); }
+  .tiles { display:flex; gap:8px; justify-content:center; }
+  .tile { flex:1; max-width:62px; aspect-ratio:1; background:#fff; border:1px solid var(--line); border-radius:4px; font-size:18px; cursor:pointer; color:var(--ink); }
+  .tile.sel { border-color:var(--gold); background:var(--gold-soft); box-shadow:inset 0 0 0 1px var(--gold); }
+  .field { width:100%; border:1px solid var(--line); border-radius:4px; padding:13px 14px; font:inherit; font-size:15px; background:var(--paper); color:var(--ink); }
+  .field:focus { outline:none; border-color:var(--gold); }
+  textarea.field { min-height:110px; resize:vertical; }
+  .more { margin-top:10px; }
+  .counter { display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid var(--line); border-radius:4px; padding:12px 16px; margin-bottom:10px; }
+  .counter.has { border-color:var(--gold); }
+  .counter .nm { font-size:16px; }
+  .counter .nm small { color:var(--muted); font-size:13px; margin-right:6px; }
+  .stp { display:flex; align-items:center; gap:12px; direction:ltr; }
+  .stp button { width:34px; height:34px; border:1px solid var(--line); background:#fff; border-radius:4px; font-size:18px; color:var(--ink); cursor:pointer; }
+  .stp button:disabled { opacity:.3; }
+  .stp b { min-width:18px; text-align:center; font-weight:500; }
+  .hint { text-align:center; color:var(--muted); font-size:13px; margin-top:6px; min-height:18px; }
+  .cta { width:100%; margin-top:24px; padding:16px; border:0; border-radius:40px; background:var(--ink); color:#fff; font-size:16px; letter-spacing:.5px; cursor:pointer; }
+  .cta:disabled { background:#bdb7ae; cursor:default; }
+  .cta.light { background:#efebe4; color:var(--ink); margin-top:12px; }
+  .step { display:none; animation:fade .3s; } .step.on { display:block; }
+  @keyframes fade { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
+  .photo { width:62%; max-width:250px; aspect-ratio:3/4; margin:8px auto 4px; border-radius:6px; position:relative; overflow:hidden;
+           background:linear-gradient(160deg,#e8dccb,#cdb796); display:flex; align-items:center; justify-content:center; color:#fff; font-size:14px; text-align:center; padding:20px; }
+  .photo:before { content:""; position:absolute; inset:8px; border:1px solid rgba(255,255,255,.6); border-radius:3px; }
+
+  /* ===== אתר האירוע ===== */
+  .site { display:grid; grid-template-columns:1fr; }
+  .cover { min-height:92vh; background:radial-gradient(ellipse at center,#7d746a 0%,#4f4943 70%,#3e3934 100%); display:flex; align-items:center; justify-content:center; padding:40px 24px; position:relative; }
+  .card { width:min(420px,88vw); aspect-ratio:3/4.2; background:#f6f1e8; position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center;
+          box-shadow:0 30px 60px rgba(0,0,0,.35); }
+  .card:before { content:""; position:absolute; inset:14px; border:1px solid var(--gold); opacity:.55; }
+  .card:after { content:""; position:absolute; inset:20px; border:1px dotted var(--gold); opacity:.45; }
+  .mono { width:130px; height:130px; border-radius:50%; border:1px solid var(--gold); display:flex; align-items:center; justify-content:center; position:relative; }
+  .mono:before { content:""; position:absolute; inset:5px; border-radius:50%; border:1px solid var(--gold); opacity:.4; }
+  .mono span { font-family:"Frank Ruhl Libre",serif; font-size:44px; color:#6f6252; letter-spacing:2px; }
+  .mono em { font-family:"Cormorant Garamond",serif; font-style:italic; color:var(--gold); font-size:34px; margin:0 6px; }
+  .card .names { margin-top:26px; font-family:"Frank Ruhl Libre",serif; font-size:22px; letter-spacing:6px; color:#6f6252; }
+  .card .names-en { font-family:"Cormorant Garamond",serif; letter-spacing:5px; font-size:15px; color:var(--muted); margin-top:6px; }
+  .card .rule { width:46px; height:1px; background:var(--gold); margin:18px 0 12px; }
+  .card .d { font-size:14px; color:var(--muted); letter-spacing:2px; }
+  .scroll { position:absolute; bottom:22px; left:50%; transform:translateX(-50%); color:#e9e1d4; font-size:13px; letter-spacing:2px; text-align:center; }
+  .scroll i { display:block; font-style:normal; font-size:18px; animation:bob 1.8s infinite; }
+  @keyframes bob { 50% { transform:translateY(6px); } }
+
+  .content { background:#fff; }
+  section.s { max-width:560px; margin:0 auto; padding:70px 28px; text-align:center; border-bottom:1px solid var(--line); }
+  section.s:last-child { border-bottom:0; }
+  .icon { width:60px; height:60px; margin:0 auto 18px; color:var(--gold); }
+  .h { font-family:"Cormorant Garamond",serif; font-weight:400; font-size:44px; margin:0; line-height:1.1; color:#4a4038; }
+  .hsub { color:var(--muted); font-size:15px; margin-top:8px; }
+  .cd { display:flex; justify-content:center; gap:18px; margin-top:30px; direction:rtl; }
+  .cd div { min-width:64px; }
+  .cd b { display:block; font-family:"Cormorant Garamond",serif; font-weight:400; font-size:48px; color:#4a4038; line-height:1; }
+  .cd span { display:block; font-size:12px; color:var(--muted); letter-spacing:3px; margin-top:8px; padding-top:6px; border-top:1px solid var(--line); }
+  .letter { color:#5d554c; font-size:16px; line-height:2; margin-top:22px; }
+  .letter p { margin:0 0 14px; }
+  .sign { font-family:"Frank Ruhl Libre",serif; font-size:19px; color:#4a4038; margin-top:8px; }
+  .draft { display:inline-block; font-size:11px; color:var(--gold); border:1px dashed var(--gold); padding:2px 8px; border-radius:10px; margin-top:14px; }
+  .dline { color:var(--muted); letter-spacing:3px; font-size:14px; }
+  .heb { font-family:"Frank Ruhl Libre",serif; font-size:18px; color:#4a4038; margin-top:6px; }
+  .place { color:var(--muted); margin-top:6px; font-size:16px; }
+  .sched { margin:28px auto 0; display:inline-grid; grid-template-columns:auto auto auto; gap:14px 14px; align-items:center; font-size:16px; }
+  .sched .bar { width:1px; height:16px; background:var(--line); }
+  .sched .t { color:var(--muted); font-family:"Cormorant Garamond",serif; font-size:20px; }
+  .btn-dark { display:inline-block; margin-top:32px; background:#1d1a17; color:#fff; padding:16px 34px; border:0; font-size:16px; cursor:pointer; text-decoration:none; }
+  .ulink { display:table; margin:18px auto 0; color:var(--ink); text-decoration:none; border-bottom:1px solid var(--ink); padding-bottom:2px; font-size:15px; }
+  .wish { background:#fbf8f4; border-radius:10px; padding:28px 22px; margin-top:24px; }
+  .wish .field { margin-bottom:12px; background:#fff; }
+  .wish button { background:#8d857b; color:#fff; border:0; padding:12px 34px; font-size:16px; cursor:pointer; }
+  .wish .ok { color:var(--gold); margin-top:12px; min-height:20px; font-size:15px; }
+  .upload { margin:24px auto 0; width:min(300px,80%); aspect-ratio:4/5; border-radius:10px; border:1px dashed var(--gold); background:var(--gold-soft);
+            display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; color:#8a6c3d; cursor:pointer; }
+  .upload b { font-size:40px; font-weight:300; line-height:1; }
+  .foot { text-align:center; color:var(--muted); font-size:13px; padding:26px; border-top:1px solid var(--line); }
+
+  @media (min-width:900px) {
+    .site { grid-template-columns:44% 56%; }
+    .content { grid-column:1; grid-row:1; max-height:100vh; overflow-y:auto; }
+    .cover { grid-column:2; grid-row:1; position:sticky; top:0; height:100vh; min-height:0; }
+    .scroll { display:none; }
+  }
+  .loading { min-height:80vh; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; color:var(--muted); }
+  .loading .ring { width:34px; height:34px; border:2px solid var(--line); border-top-color:var(--gold); border-radius:50%; animation:spin 1s linear infinite; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+</style>
+</head>
+<body>
+<div class="loading" id="loading"><div class="ring"></div><div id="loadMsg">טוען...</div></div>
+<div class="view" id="v-rsvp">
+  <div class="flow">
+    <div class="flow-head">
+      <button class="backbtn" id="back" aria-label="חזרה">›</button>
+      <h1 id="fHosts"></h1>
+    </div>
+    <div class="prog"><i id="bar" style="width:25%"></i></div>
+
+    <div class="step on" id="s1">
+      <span class="tag">אישור הגעה</span>
+      <h2 class="q" id="greet"></h2>
+      <div class="meta" id="fMeta"></div>
+      <div class="opts stack" id="att">
+        <button class="opt" data-v="מגיע"><span class="ic">🥂</span><b class="big">Yes!</b>מגיע/ה לחגוג את האיחוד ההיסטורי בין ישראל לפולין</button>
+        <button class="opt" data-v="לא מגיע"><span class="ic">🤗</span>לא יכול/ה להגיע, אבל שולח/ת חיבוקים ענקיים</button>
+      </div>
+      <div id="cntBox" style="display:none">
+        <div class="sep">כמה תהיו?</div>
+        <div class="tiles" id="tiles"></div>
+      </div>
+      <button class="cta" id="n1" disabled>המשך</button>
+    </div>
+
+    <div class="step" id="s2">
+      <span class="tag">העדפות מזון</span>
+      <h2 class="q">יש לכם העדפות מזון?</h2>
+      <div class="meta">כדי שנדאג שכולם ייהנו</div>
+      <div class="opts" id="food">
+        <button class="opt" data-v="yes"><span class="ic">✓</span>כן, בבקשה</button>
+        <button class="opt" data-v="no"><span class="ic">—</span>לא, תודה</button>
+      </div>
+      <div id="foodBox" style="display:none">
+        <div class="sep">איזה העדפות?</div>
+        <div id="counters"></div>
+        <div class="hint" id="foodHint"></div>
+      </div>
+      <button class="cta" id="n2" disabled>המשך</button>
+    </div>
+
+    <div class="step" id="s3">
+      <span class="tag">הערות</span>
+      <h2 class="q">תרצו להוסיף משהו?</h2>
+      <div class="meta">אלרגיות, נגישות, או סתם מילה טובה</div>
+      <textarea class="field" id="note" placeholder="הקלידו כאן"></textarea>
+      <button class="cta" id="n3" disabled>שליחה</button>
+      <button class="cta light" id="skip">דלג</button>
+    </div>
+
+    <div class="step" id="s4">
+      <span class="tag">תודה!</span>
+      <h2 class="q" id="thxT"></h2>
+      <div class="meta" id="thxM"></div>
+      <div class="photo" id="photo" style="display:none"></div>
+      <button class="cta" id="toSite">לאתר האירוע</button>
+      <button class="cta light" id="edit">‹ עריכת תשובות</button>
+    </div>
+    <div class="hint" id="err" style="color:#a0574f"></div>
+  </div>
+</div>
+
+<div class="view" id="v-site">
+  <div class="site">
+    <div class="cover">
+      <div class="card">
+        <div class="mono"><span id="mA"></span><em>&amp;</em><span id="mB"></span></div>
+        <div class="names" id="cHosts"></div>
+        <div class="names-en" id="cHostsEn"></div>
+        <div class="rule"></div>
+        <div class="d" id="cDate"></div>
+      </div>
+      <div class="scroll">גללו למטה<i>⌄</i></div>
+    </div>
+
+    <div class="content">
+      <section class="s">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M24 50 C10 40 6 32 6 24 a10 10 0 0 1 18-6 a10 10 0 0 1 18 6 c0 8-4 16-18 26z"/><path d="M40 52 C28 44 24 37 24 30 a9 9 0 0 1 16-5 a9 9 0 0 1 16 5 c0 7-4 14-16 22z"/></svg>
+        <h2 class="h">Counting the days</h2>
+        <div class="hsub">עוד רגע קטן ואנחנו שם</div>
+        <div class="cd">
+          <div><b id="cdD">0</b><span>ימים</span></div>
+          <div><b id="cdH">0</b><span>שעות</span></div>
+          <div><b id="cdM">0</b><span>דקות</span></div>
+          <div><b id="cdS">0</b><span>שניות</span></div>
+        </div>
+      </section>
+
+      <section class="s" id="letterSec">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="32" cy="40" r="15"/><circle cx="32" cy="40" r="12"/><path d="M24 22 l4-6 h8 l4 6 l-8 6z M24 22 h16"/></svg>
+        <h2 class="h">Dear Family &amp; Friends</h2>
+        <div class="letter" id="letter"></div>
+        <div class="sign" id="sign"></div>
+      </section>
+
+      <section class="s">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M14 58 V22 Q32 2 50 22 V58"/><path d="M14 22 Q20 36 22 58 M50 22 Q44 36 42 58"/><circle cx="20" cy="16" r="2.5"/><circle cx="32" cy="9" r="2.5"/><circle cx="44" cy="16" r="2.5"/><circle cx="26" cy="11" r="2"/><circle cx="38" cy="11" r="2"/></svg>
+        <div class="dline" id="sDate"></div>
+        <h2 class="h" style="margin-top:8px">The Wedding Day</h2>
+        <div class="heb" id="sHeb"></div>
+        <div class="place" id="sPlace"></div>
+        <div class="sched">
+          <span>קבלת פנים</span><span class="bar"></span><span class="t" id="sRec"></span>
+          <span>חופה וקידושין</span><span class="bar"></span><span class="t" id="sChu"></span>
+        </div>
+        <div><button class="btn-dark" id="toRsvp">לעדכון הגעה</button></div>
+        <a class="ulink" id="waze" target="_blank">ניווט ב-Waze</a>
+      </section>
+
+      <section class="s">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="8" y="22" width="40" height="28" rx="2"/><path d="M8 24 l20 14 l20-14"/><path d="M22 18 l30-6 l4 22 l-8 1.5"/></svg>
+        <h2 class="h">Wish Us Something</h2>
+        <div class="hsub">השאירו לנו כמה מילים מהלב, שיישארו איתנו למזכרת תמיד.</div>
+        <div class="wish">
+          <input class="field" id="wn" placeholder="שם">
+          <textarea class="field" id="wt" placeholder="הוסיפו ברכה כאן..."></textarea>
+          <button id="ws">שליחה</button>
+          <div class="ok" id="wok"></div>
+        </div>
+      </section>
+
+      <div class="foot" id="foot"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var API = 'https://script.google.com/macros/s/AKfycbwZPBEEjxt-qdFRvEX7ppTKlaXqSO6OVmgicqfL252AblZgDMKGgjpBpErVE_E1dVoAjg/exec';
+  var g, cfg;
+
+  function api(action, data) {
+    var url = API + '?action=' + action + (data ? '&d=' + encodeURIComponent(JSON.stringify(data)) : '');
+    var gid = new URLSearchParams(location.search).get('g');
+    if (action === 'load' && gid) url += '&g=' + encodeURIComponent(gid);
+    return fetch(url).then(function (r) { return r.json(); }).then(function (j) {
+      if (!j.ok) throw new Error(j.error || 'שגיאה');
+      return j;
+    });
+  }
+
+  api('load').then(function (j) {
+    g = j.guest; cfg = j.config;
+    document.getElementById('loading').style.display = 'none';
+    main();
+  }).catch(function () {
+    document.getElementById('loadMsg').textContent = 'לא הצלחנו לטעון את הדף. נסו לרענן בעוד רגע.';
+  });
+
+  function main() {
+  function $(id) { return document.getElementById(id); }
+  function txt(id, t) { $(id).textContent = t; }
+  function show(v) {
+    document.querySelectorAll('.view').forEach(function (x) { x.classList.toggle('on', x.id === 'v-' + v); });
+    window.scrollTo(0, 0);
+  }
+
+  /* ---- מילוי פרטים ---- */
+  txt('fHosts', cfg.hosts);
+  $('fMeta').innerHTML = '';
+  $('fMeta').appendChild(document.createTextNode(cfg.dateHeb + ' · ' + cfg.dateNum.replace(/^0/, '')));
+  $('fMeta').appendChild(document.createElement('br'));
+  $('fMeta').appendChild(document.createTextNode(cfg.venue));
+  txt('mA', cfg.monoA); txt('mB', cfg.monoB);
+  txt('cHosts', cfg.hosts); txt('cHostsEn', cfg.hostsEn);
+  txt('cDate', cfg.dateNum.split('.').join(' · '));
+  txt('sDate', '— ' + cfg.dateNum + ' —'); txt('sHeb', cfg.dateHeb); txt('sPlace', cfg.venue);
+  txt('sRec', cfg.reception); txt('sChu', cfg.chuppah);
+  if (cfg.waze) $('waze').href = cfg.waze; else $('waze').style.display = 'none';
+  if (cfg.letter && cfg.letter.length) {
+    cfg.letter.forEach(function (p) { var e = document.createElement('p'); e.textContent = p; $('letter').appendChild(e); });
+    txt('sign', cfg.sign);
+  } else $('letterSec').style.display = 'none';
+  txt('foot', cfg.hosts + ' · ' + cfg.dateNum.slice(-4));
+  if (cfg.photo) {
+    var img = document.createElement('img'); img.src = cfg.photo; img.alt = '';
+    img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover';
+    $('photo').appendChild(img); $('photo').style.display = '';
+  }
+
+  /* ---- ספירה לאחור ---- */
+  var target = new Date(cfg.start).getTime();
+  function tick() {
+    var d = Math.max(0, target - Date.now());
+    txt('cdD', Math.floor(d / 864e5)); txt('cdH', Math.floor(d / 36e5) % 24);
+    txt('cdM', Math.floor(d / 6e4) % 60); txt('cdS', Math.floor(d / 1e3) % 60);
+  }
+  tick(); setInterval(tick, 1000);
+
+  /* ---- ברכות ---- */
+  $('ws').onclick = function () {
+    var name = $('wn').value.trim(), t = $('wt').value.trim();
+    if (!t) { txt('wok', 'כתבו ברכה קטנה 🙂'); return; }
+    $('ws').disabled = true; txt('wok', 'שולח...');
+    api('wish', { name: name || (g ? g.name : ''), text: t.slice(0, 1000) })
+      .then(function () { txt('wok', 'תודה' + (name ? ', ' + name : '') + '! הברכה נשמרה 🤍'); $('wn').value = ''; $('wt').value = ''; $('ws').disabled = false; })
+      .catch(function () { txt('wok', 'משהו השתבש, נסו שוב'); $('ws').disabled = false; });
+  };
+
+  /* ---- בלי קישור אישי: רק אתר האירוע ---- */
+  if (!g) {
+    $('toRsvp').style.display = 'none';
+    show('site');
+  } else {
+    initFlow();
+  }
+
+  function initFlow() {
+    var st = { step: 1, att: '', count: 0, food: '', diet: {}, note: '' };
+    var MAX = g.max || 6;
+    cfg.diets.forEach(function (k) { st.diet[k] = (g.diet && g.diet[k]) || 0; });
+    txt('greet', g.name + ', תגיע/י לחגוג איתנו?');
+
+    function go(n) {
+      st.step = n;
+      for (var i = 1; i <= 4; i++) $('s' + i).classList.toggle('on', i === n);
+      $('bar').style.width = (n * 25) + '%';
+      $('back').style.visibility = (n > 1 && n < 4) ? 'visible' : 'hidden';
+      txt('err', '');
+      window.scrollTo(0, 0);
+    }
+    $('back').onclick = function () { go(st.step === 3 && st.att === 'מגיע' ? 2 : 1); };
+
+    for (var i = 1; i <= MAX; i++) (function (n) {
+      var t = document.createElement('button'); t.className = 'tile'; t.textContent = n;
+      t.onclick = function () { st.count = n; r1(); };
+      $('tiles').appendChild(t);
+    })(i);
+    document.querySelectorAll('#att .opt').forEach(function (b) { b.onclick = function () { st.att = b.dataset.v; r1(); }; });
+    function r1() {
+      document.querySelectorAll('#att .opt').forEach(function (b) { b.classList.toggle('sel', b.dataset.v === st.att); });
+      $('cntBox').style.display = st.att === 'מגיע' ? '' : 'none';
+      document.querySelectorAll('.tile').forEach(function (t) { t.classList.toggle('sel', +t.textContent === st.count); });
+      $('n1').disabled = !st.att || (st.att === 'מגיע' && !st.count);
+      txt('n1', st.att === 'לא מגיע' ? 'שליחה' : 'המשך');
+    }
+    $('n1').onclick = function () { if (st.att === 'לא מגיע') send(); else go(2); };
+
+    function total() { var s = 0; for (var k in st.diet) s += st.diet[k]; return s; }
+    var counterUpd = [];
+    cfg.diets.forEach(function (k) {
+      var row = document.createElement('div'); row.className = 'counter';
+      var nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = k;
+      var stp = document.createElement('span'); stp.className = 'stp';
+      var minus = document.createElement('button'); minus.textContent = '−';
+      var val = document.createElement('b');
+      var plus = document.createElement('button'); plus.textContent = '+';
+      stp.appendChild(minus); stp.appendChild(val); stp.appendChild(plus);
+      row.appendChild(nm); row.appendChild(stp);
+      function upd() { val.textContent = st.diet[k]; row.classList.toggle('has', st.diet[k] > 0); minus.disabled = st.diet[k] === 0; r2(); }
+      minus.onclick = function () { if (st.diet[k] > 0) { st.diet[k]--; upd(); } };
+      plus.onclick = function () {
+        if (total() < st.count) { st.diet[k]++; upd(); }
+        else txt('foodHint', 'סה״כ המנות המיוחדות לא יכול לעבור את מספר המגיעים (' + st.count + ')');
+      };
+      counterUpd.push(upd);
+      $('counters').appendChild(row);
+    });
+    document.querySelectorAll('#food .opt').forEach(function (b) { b.onclick = function () { st.food = b.dataset.v; r2(); }; });
+    function r2() {
+      document.querySelectorAll('#food .opt').forEach(function (b) { b.classList.toggle('sel', b.dataset.v === st.food); });
+      $('foodBox').style.display = st.food === 'yes' ? '' : 'none';
+      if (total() < st.count) txt('foodHint', '');
+      $('n2').disabled = !st.food || (st.food === 'yes' && total() === 0);
+    }
+    $('n2').onclick = function () {
+      if (total() > st.count) { // אם הורידו כמות אחרי שסימנו
+        cfg.diets.forEach(function (k) { st.diet[k] = 0; }); counterUpd.forEach(function (f) { f(); });
+        txt('foodHint', 'עדכנו שוב את המנות לפי מספר המגיעים'); return;
+      }
+      go(3);
+    };
+
+    $('note').oninput = function () { st.note = this.value; $('n3').disabled = !this.value.trim(); };
+    $('n3').onclick = send;
+    $('skip').onclick = function () { st.note = ''; $('note').value = ''; send(); };
+
+    function setBusy(b) { ['n1', 'n3', 'skip'].forEach(function (id) { $(id).disabled = b; }); }
+    function send() {
+      setBusy(true); txt('err', '');
+      var diet = {};
+      if (st.att === 'מגיע' && st.food === 'yes') diet = st.diet;
+      api('rsvp', { id: g.id, status: st.att, count: st.count, diet: diet, note: st.note.slice(0, 800) })
+        .then(function (r) { setBusy(false); thanks(r.status, r.count); })
+        .catch(function (e) { setBusy(false); r1(); txt('err', 'משהו השתבש, נסו שוב. (' + (e && e.message ? e.message : e) + ')'); });
+    }
+
+    function thanks(status, n) {
+      if (status === 'מגיע') {
+        txt('thxT', 'איזה כיף, נתראה שם!');
+        txt('thxM', 'רשמנו ' + (n > 1 ? n + ' מגיעים' : 'אותך') + '. מוזמנים להמשיך לאתר האירוע לכל הפרטים');
+      } else {
+        txt('thxT', 'תודה על החיבוקים 🤍');
+        txt('thxM', 'נתגעגע! אפשר עדיין להציץ באתר האירוע');
+      }
+      go(4);
+    }
+    $('toSite').onclick = function () { show('site'); };
+    $('edit').onclick = function () { go(1); };
+    $('toRsvp').onclick = function () { show('rsvp'); go(1); };
+
+    // מצב התחלתי
+    if (g.status === 'מגיע' || g.status === 'לא מגיע') {
+      st.att = g.status; st.count = g.count || 0;
+      if (total() > 0) st.food = 'yes';
+      $('note').value = g.note || ''; st.note = g.note || ''; $('n3').disabled = !st.note.trim();
+      counterUpd.forEach(function (f) { f(); });
+      r1(); r2();
+      show('rsvp'); thanks(g.status, g.count);
+    } else {
+      counterUpd.forEach(function (f) { f(); });
+      r1(); r2();
+      show('rsvp');
+    }
+  }
+  }
+</script>
+</body>
+</html>
