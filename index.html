@@ -212,6 +212,7 @@
         <div class="tiles" id="tiles"></div>
       </div>
       <button class="cta" id="n1" disabled></button>
+      <button class="cta light" id="viewSite" data-t="view_site"></button>
     </div>
 
     <div class="step" id="s2">
@@ -327,6 +328,7 @@
       date: 'יום חמישי, י״ט באדר א׳ תשפ״ז · 25.2.2027',
       venue: 'יער - מושב אורה',
       tag_rsvp: 'אישור הגעה',
+      view_site: 'לצפייה בהזמנה המלאה',
       nudge: 'עוד לא שמענו ממך 🙂 נשמח לתשובה, זה לוקח 10 שניות',
       nudge_p: 'עוד לא שמענו מכם 🙂 נשמח לתשובה, זה לוקח 10 שניות',
       greet: '{name}, תגיע/י לחגוג איתנו?',
@@ -374,6 +376,7 @@
       date: 'Thursday, February 25, 2027',
       venue: "Ya'ar – Moshav Ora",
       tag_rsvp: 'RSVP',
+      view_site: 'View the full invitation',
       nudge: "We haven't heard from you yet 🙂 It only takes 10 seconds",
       greet: '{name}, will you celebrate with us?',
       yes_txt_p: "We're coming to celebrate the historic union of Israel and Poland",
@@ -418,6 +421,7 @@
       date: 'Czwartek, 25 lutego 2027',
       venue: "Ya'ar – moszaw Ora",
       tag_rsvp: 'Potwierdzenie obecności',
+      view_site: 'Zobacz zaproszenie',
       nudge: 'Jeszcze nie dostaliśmy od Ciebie odpowiedzi 🙂 To zajmie tylko 10 sekund',
       nudge_p: 'Jeszcze nie dostaliśmy od Was odpowiedzi 🙂 To zajmie tylko 10 sekund',
       greet: '{name}, czy będziesz świętować z nami?',
@@ -637,6 +641,7 @@
     }
     function thanks(status, n) { st.done = { status: status, n: n }; thanksText(); go(4); }
     $('toSite').onclick = function () { show('site'); };
+    $('viewSite').onclick = function () { show('site'); };
     $('edit').onclick = function () { go(1); };
     $('toRsvp').onclick = function () { show('rsvp'); go(1); };
 
