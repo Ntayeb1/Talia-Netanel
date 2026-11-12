@@ -132,6 +132,8 @@
   .loading .ring { width:34px; height:34px; border:2px solid var(--line); border-top-color:var(--gold); border-radius:50%; animation:spin 1s linear infinite; }
   @keyframes spin { to { transform:rotate(360deg); } }
   .nudge { display:none; background:var(--gold-soft); border:1px solid #e6d7bd; color:#7a5f36; border-radius:4px; padding:12px 14px; text-align:center; font-size:15px; margin:-10px 0 22px; line-height:1.5; }
+  .dl { display:block; margin-top:10px; font-weight:500; color:var(--ink); }
+  .dl:empty { display:none; }
   .langs { position:fixed; top:10px; inset-inline-end:10px; z-index:60; display:flex; gap:2px; background:rgba(255,255,255,.92); border:1px solid var(--line); border-radius:20px; padding:3px; box-shadow:0 2px 10px rgba(0,0,0,.06); }
   .langs button { border:0; background:none; padding:5px 10px; border-radius:16px; font-size:12px; color:var(--muted); cursor:pointer; letter-spacing:.5px; }
   .langs button.on { background:var(--ink); color:#fff; }
@@ -202,7 +204,7 @@
     <div class="step on" id="s1">
       <span class="tag" data-t="tag_rsvp"></span>
       <h2 class="q" id="greet"></h2>
-      <div class="meta"><span data-t="date"></span><br><span data-t="venue"></span></div>
+      <div class="meta"><span data-t="date"></span><br><span data-t="venue"></span><span class="dl" data-t="deadline"></span></div>
       <div class="opts stack" id="att">
         <button class="opt" data-v="מגיע"><span class="ic">🥂</span><b class="big" data-t="yes_big"></b><span data-t="yes_txt"></span></button>
         <button class="opt" data-v="לא מגיע"><span class="ic">🤗</span><span data-t="no_txt"></span></button>
@@ -329,6 +331,7 @@
       venue: 'יער - מושב אורה',
       tag_rsvp: 'אישור הגעה',
       view_site: 'לצפייה בהזמנה המלאה',
+      deadline: '',
       nudge: 'עוד לא שמענו ממך 🙂 נשמח לתשובה, זה לוקח 10 שניות',
       nudge_p: 'עוד לא שמענו מכם 🙂 נשמח לתשובה, זה לוקח 10 שניות',
       greet: '{name}, תגיע/י לחגוג איתנו?',
@@ -377,6 +380,7 @@
       venue: "Ya'ar – Moshav Ora",
       tag_rsvp: 'RSVP',
       view_site: 'View the full invitation',
+      deadline: '',
       nudge: "We haven't heard from you yet 🙂 It only takes 10 seconds",
       greet: '{name}, will you celebrate with us?',
       yes_txt_p: "We're coming to celebrate the historic union of Israel and Poland",
@@ -422,6 +426,7 @@
       venue: "Ya'ar – moszaw Ora",
       tag_rsvp: 'Potwierdzenie obecności',
       view_site: 'Zobacz zaproszenie',
+      deadline: 'Prosimy o potwierdzenie do 21.01.2027',
       nudge: 'Jeszcze nie dostaliśmy od Ciebie odpowiedzi 🙂 To zajmie tylko 10 sekund',
       nudge_p: 'Jeszcze nie dostaliśmy od Was odpowiedzi 🙂 To zajmie tylko 10 sekund',
       greet: '{name}, czy będziesz świętować z nami?',
