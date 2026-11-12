@@ -270,7 +270,10 @@
       venue: 'יער - מושב אורה',
       tag_rsvp: 'אישור הגעה',
       greet: '{name}, תגיע/י לחגוג איתנו?',
-      greet_anon: 'תגיע/י לחגוג איתנו?',
+      greet_p: '{name}, תגיעו לחגוג איתנו?',
+      yes_txt_p: 'מגיעים לחגוג את האיחוד ההיסטורי בין ישראל לפולין',
+      no_txt_p: 'לא יכולים להגיע, אבל שולחים חיבוקים ענקיים',
+      thx_yes_one_p: 'רשמנו אתכם. מוזמנים להמשיך לאתר האירוע לכל הפרטים',
       yes_txt: 'מגיע/ה לחגוג את האיחוד ההיסטורי בין ישראל לפולין',
       no_txt: 'לא יכול/ה להגיע, אבל שולח/ת חיבוקים ענקיים',
       how_many: 'כמה תהיו?',
@@ -309,7 +312,8 @@
       venue: "Ya'ar – Moshav Ora",
       tag_rsvp: 'RSVP',
       greet: '{name}, will you celebrate with us?',
-      greet_anon: 'Will you celebrate with us?',
+      yes_txt_p: "We're coming to celebrate the historic union of Israel and Poland",
+      no_txt_p: "We can't make it, but sending huge hugs",
       yes_txt: "I'm coming to celebrate the historic union of Israel and Poland",
       no_txt: "Can't make it, but sending huge hugs",
       how_many: 'How many of you?',
@@ -348,7 +352,10 @@
       venue: "Ya'ar – moszaw Ora",
       tag_rsvp: 'Potwierdzenie obecności',
       greet: '{name}, czy będziesz świętować z nami?',
-      greet_anon: 'Czy będziesz świętować z nami?',
+      greet_p: '{name}, czy będziecie świętować z nami?',
+      yes_txt_p: 'Przychodzimy świętować historyczną unię Izraela i Polski',
+      no_txt_p: 'Nie możemy przyjść, ale przesyłamy ogromne uściski',
+      thx_yes_one_p: 'Jesteście na liście. Zapraszamy na stronę wydarzenia po wszystkie szczegóły',
       yes_txt: 'Przychodzę świętować historyczną unię Izraela i Polski',
       no_txt: 'Nie mogę przyjść, ale przesyłam ogromne uściski',
       how_many: 'Ile osób przyjdzie?',
@@ -389,6 +396,7 @@
   function $(id) { return document.getElementById(id); }
   function txt(id, t) { $(id).textContent = t; }
   function t(k, vars) {
+    if (g && g.plural && T[L] && T[L][k + '_p'] != null) k = k + '_p';
     var s = (T[L] && T[L][k] != null) ? T[L][k] : T.he[k];
     if (typeof s === 'string' && vars) for (var v in vars) s = s.split('{' + v + '}').join(vars[v]);
     return s;
@@ -424,7 +432,7 @@
 
   api('load').then(function (j) {
     g = j.guest; cfg = j.config;
-    if (!params.get('lang') && g && g.lang) setLang(g.lang);
+    setLang(!params.get('lang') && g && g.lang ? g.lang : L);
     $('loading').style.display = 'none';
     main();
   }).catch(function () { txt('loadMsg', t('load_err')); });
