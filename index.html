@@ -307,7 +307,9 @@
       wish_empty: 'כתבו ברכה קטנה 🙂', wish_ok: 'תודה{name}! הברכה נשמרה 🤍'
     },
     en: {
-      hosts: 'Talia & Netanel',
+      hosts: 'Natalia & Netanel',
+      hostsEn: 'NATALIA & NETANEL',
+      mono: ['N', 'N'],
       date: 'Thursday, February 25, 2027',
       venue: "Ya'ar – Moshav Ora",
       tag_rsvp: 'RSVP',
@@ -339,7 +341,7 @@
         "You are the people who have been with us all along the way, and we couldn't imagine standing under the chuppah without seeing your faces around us.",
         'Come celebrate, dance and raise a glass with us.'
       ],
-      sign: 'With love, Talia & Netanel',
+      sign: 'With love, Natalia & Netanel',
       reception: 'Reception', chuppah: 'Chuppah ceremony',
       rsvp_btn: 'Update RSVP', waze: 'Navigate with Waze',
       wish_sub: 'Leave us a few words from the heart, to keep with us forever.',
@@ -347,7 +349,9 @@
       wish_empty: 'Write a little wish 🙂', wish_ok: 'Thank you{name}! Your wish was saved 🤍'
     },
     pl: {
-      hosts: 'Talia & Netanel',
+      hosts: 'Natalia & Netanel',
+      hostsEn: 'NATALIA & NETANEL',
+      mono: ['N', 'N'],
       date: 'Czwartek, 25 lutego 2027',
       venue: "Ya'ar – moszaw Ora",
       tag_rsvp: 'Potwierdzenie obecności',
@@ -381,7 +385,7 @@
         'To Wy towarzyszyliście nam przez całą tę drogę, dlatego nie wyobrażamy sobie tego dnia bez Was.',
         'Mamy nadzieję, że wspólnie będziemy cieszyć się, wzruszać, tańczyć i wznosić nieskończone toasty!'
       ],
-      sign: 'Z miłością, Talia i Netanel',
+      sign: 'Z miłością, Natalia i Netanel',
       reception: 'Powitanie gości', chuppah: 'Ceremonia ślubna (chupa)',
       rsvp_btn: 'Potwierdź obecność', waze: 'Nawiguj w Waze',
       wish_sub: 'Zostaw nam kilka słów od serca – zachowamy je na zawsze.',
@@ -443,13 +447,12 @@
   }
 
   function main() {
-    txt('mA', cfg.monoA); txt('mB', cfg.monoB);
-    txt('cHostsEn', cfg.hostsEn);
+    function hostsLine() { var mo = (T[L] && T[L].mono) || [cfg.monoA, cfg.monoB]; txt('mA', mo[0]); txt('mB', mo[1]); txt('cHostsEn', (T[L] && T[L].hostsEn) || cfg.hostsEn); txt('foot', t('hosts') + ' · ' + cfg.dateNum.slice(-4)); }
+    hostsLine(); onLang.push(hostsLine);
     txt('cDate', cfg.dateNum.split('.').join(' · '));
     txt('sDate', '— ' + cfg.dateNum + ' —');
     txt('sRec', cfg.reception); txt('sChu', cfg.chuppah);
     if (cfg.waze) $('waze').href = cfg.waze; else $('waze').style.display = 'none';
-    txt('foot', 'Talia & Netanel · ' + cfg.dateNum.slice(-4));
     if (cfg.photo) {
       var img = document.createElement('img'); img.src = cfg.photo; img.alt = '';
       img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover';
