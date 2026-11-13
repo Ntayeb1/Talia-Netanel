@@ -8,7 +8,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Save the date · טליה & נתנאל מתחתנים 💍">
 <meta property="og:description" content="יום חמישי, 25.2.2027 · יער - מושב אורה · לחצו לאישור הגעה">
-<meta property="og:image" content="https://talianetanel.love/og.jpg">
+<meta property="og:image" content="https://talianetanel.love/og-he.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
@@ -261,7 +261,7 @@
 <div class="view" id="v-site">
   <div class="site">
     <div class="cover">
-      <img class="inv" src="invite.jpg" alt="Save the date – Natalia &amp; Netanel">
+      <img class="inv" id="invImg" alt="Save the date">
       <div class="card">
         <div class="mono"><span id="mA"></span><em>&amp;</em><span id="mB"></span></div>
         <div class="names" data-t="hosts"></div>
@@ -475,6 +475,10 @@
   /* ================== מנגנון ================== */
   var g, cfg, L = 'he', onLang = [];
   var params = new URLSearchParams(location.search);
+  // שתי גרסאות: עברית (talianetanel.love/) ובינלאומית – אנגלית + פולנית (talianetanel.love/i/)
+  var INTL = location.pathname.indexOf('/i/') >= 0;
+  var BASE = INTL ? '../' : '';
+  var ALLOWED = INTL ? ['en', 'pl'] : ['he'];
   function $(id) { return document.getElementById(id); }
   function txt(id, t) { $(id).textContent = t; }
   function t(k, vars) {
@@ -484,7 +488,7 @@
     return s;
   }
   function setLang(l) {
-    if (!T[l]) l = 'he';
+    if (ALLOWED.indexOf(l) < 0) l = ALLOWED[0];
     L = l;
     try { localStorage.setItem('lang', l); } catch (e) {}
     document.documentElement.lang = l;
@@ -510,11 +514,14 @@
   }
 
   var stored = null; try { stored = localStorage.getItem('lang'); } catch (e) {}
-  setLang(params.get('lang') || stored || 'he');
+  document.querySelectorAll('#langs button').forEach(function (b) { if (ALLOWED.indexOf(b.dataset.l) < 0) b.style.display = 'none'; });
+  if (ALLOWED.length < 2) $('langs').style.display = 'none';
+  $('invImg').src = BASE + (INTL ? 'invite.jpg' : 'invite-he.jpg');
+  setLang(params.get('lang') || (ALLOWED.indexOf(stored) >= 0 ? stored : '') || ALLOWED[0]);
 
   api('load').then(function (j) {
     g = j.guest; cfg = j.config;
-    setLang(!params.get('lang') && g && g.lang ? g.lang : L);
+    setLang(!params.get('lang') && g && ALLOWED.indexOf(g.lang) >= 0 ? g.lang : L);
     $('loading').style.display = 'none';
     main();
   }).catch(function () { txt('loadMsg', t('load_err')); });
@@ -531,7 +538,7 @@
     txt('sDate', '— ' + cfg.dateNum + ' —');
     txt('sRec', cfg.reception); txt('sChu', cfg.chuppah);
     if (cfg.waze) $('waze').href = cfg.waze; else $('waze').style.display = 'none';
-    cfg.photo = cfg.photo || 'couple.jpg';
+    cfg.photo = cfg.photo || (BASE + 'couple.jpg');
     if (cfg.photo) {
       var tp = document.createElement('div'); tp.className = 'tape'; $('photo').appendChild(tp);
       var img = document.createElement('img'); img.src = cfg.photo; img.alt = '';
