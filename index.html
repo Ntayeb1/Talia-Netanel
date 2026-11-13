@@ -13,7 +13,7 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Frank+Ruhl+Libre:wght@300;400;500&family=Heebo:wght@300;400;500&family=Jost:wght@300;400;500&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Frank+Ruhl+Libre:wght@300;400;500&family=Heebo:wght@300;400;500&family=Jost:wght@300;400;500&family=Mrs+Saint+Delafield&family=Pinyon+Script&display=swap" rel="stylesheet">
 <style>
   :root { --gold:#b08d57; --gold-soft:#f4ede1; --ink:#2f2a24; --muted:#8a8073; --line:#e9e1d4; --bg:#faf7f2; --paper:#fffdf9; }
   * { box-sizing:border-box; }
@@ -183,6 +183,10 @@
   .btn-dark { border-radius:40px; font-weight:400; letter-spacing:1px; padding:15px 38px; }
   .wish { background:#efe9e1; border-radius:2px; }
   .wish button { background:var(--ink); border-radius:40px; }
+  /* פולנית: Mrs Saint Delafield חסר ą ś ń ć ę ź ż – פונט כתב יד עם כל האותיות */
+  [lang="pl"] .h, [lang="pl"] .opt .big, [lang="pl"] .sign { font-family:"Pinyon Script",cursive; }
+  [lang="pl"] .h { font-size:46px; }
+  [lang="pl"] .sign { font-size:28px; }
   .foot { font-size:12px; letter-spacing:3px; text-transform:uppercase; }
 </style>
 </head>
