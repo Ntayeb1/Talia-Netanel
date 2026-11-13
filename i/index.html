@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Natalia & Netanel</title>
+<meta name="description" content="Thursday, 25.02.2027 · Ya’ar, Moshav Ora, Israel · RSVP">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Save the date · Natalia & Netanel 💍">
+<meta property="og:description" content="Thursday, 25.02.2027 · Ya’ar, Moshav Ora, Israel · RSVP / Potwierdź obecność">
+<meta property="og:image" content="https://talianetanel.love/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Frank+Ruhl+Libre:wght@300;400;500&family=Heebo:wght@300;400;500&family=Jost:wght@300;400;500&family=Mrs+Saint+Delafield&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+  :root { --gold:#b08d57; --gold-soft:#f4ede1; --ink:#2f2a24; --muted:#8a8073; --line:#e9e1d4; --bg:#faf7f2; --paper:#fffdf9; }
+  * { box-sizing:border-box; }
+  html, body { margin:0; background:var(--bg); color:var(--ink); font-family:"Heebo",Arial,sans-serif; font-weight:400; }
+  button { font-family:inherit; }
+  .serif { font-family:"Frank Ruhl Libre",serif; }
+  .latin { font-family:"Cormorant Garamond",serif; }
+
+  /* ניווט סקיצה */
+  .switch { position:sticky; top:0; z-index:50; display:flex; justify-content:center; gap:6px; padding:8px; background:rgba(250,247,242,.92); backdrop-filter:blur(6px); border-bottom:1px solid var(--line); }
+  .switch button { border:1px solid var(--line); background:#fff; border-radius:20px; padding:6px 14px; font-size:13px; color:var(--muted); cursor:pointer; }
+  .switch button.on { background:var(--ink); color:#fff; border-color:var(--ink); }
+  .view { display:none; } .view.on { display:block; }
+
+  /* ===== תהליך אישור ===== */
+  .flow { max-width:480px; margin:0 auto; padding:26px 20px 50px; }
+  .flow-head { text-align:center; position:relative; }
+  .flow-head h1 { font-family:"Frank Ruhl Libre",serif; font-weight:500; font-size:28px; margin:0; letter-spacing:.5px; }
+  .backbtn { position:absolute; left:0; top:4px; background:none; border:0; font-size:22px; color:var(--ink); cursor:pointer; visibility:hidden; }
+  .prog { height:2px; background:var(--line); margin:16px 0 30px; position:relative; }
+  .prog i { position:absolute; inset-inline-start:0; top:0; height:2px; background:var(--gold); transition:width .35s; }
+  .tag { display:table; margin:0 auto 12px; font-size:13px; color:var(--gold); background:var(--gold-soft); padding:4px 12px; border-radius:20px; }
+  .q { font-family:"Frank Ruhl Libre",serif; font-weight:500; font-size:26px; text-align:center; margin:0 0 8px; }
+  .meta { text-align:center; color:var(--muted); font-size:15px; line-height:1.6; margin-bottom:24px; }
+  .opts { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .opt { background:#fff; border:1px solid var(--line); border-radius:4px; padding:22px 8px 18px; cursor:pointer; text-align:center; font-size:16px; font-weight:500; color:var(--ink); transition:all .15s; }
+  .opt .ic { display:block; font-size:24px; margin-bottom:8px; color:var(--gold); }
+  .opt.sel { border-color:var(--gold); background:var(--gold-soft); box-shadow:inset 0 0 0 1px var(--gold); }
+  .opts.stack { grid-template-columns:1fr; }
+  .opts.stack .opt { padding:18px 18px; line-height:1.5; font-size:16px; }
+  .opt .big { display:block; font-family:"Cormorant Garamond",serif; font-size:26px; font-weight:500; margin-bottom:2px; }
+  .sep { display:flex; align-items:center; gap:12px; color:var(--muted); font-size:14px; margin:26px 0 14px; }
+  .sep:before, .sep:after { content:""; flex:1; height:1px; background:var(--line); }
+  .tiles { display:flex; gap:8px; justify-content:center; }
+  .tile { flex:1; max-width:62px; aspect-ratio:1; background:#fff; border:1px solid var(--line); border-radius:4px; font-size:18px; cursor:pointer; color:var(--ink); }
+  .tile.sel { border-color:var(--gold); background:var(--gold-soft); box-shadow:inset 0 0 0 1px var(--gold); }
+  .field { width:100%; border:1px solid var(--line); border-radius:4px; padding:13px 14px; font:inherit; font-size:15px; background:var(--paper); color:var(--ink); }
+  .field:focus { outline:none; border-color:var(--gold); }
+  textarea.field { min-height:110px; resize:vertical; }
+  .more { margin-top:10px; }
+  .counter { display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid var(--line); border-radius:4px; padding:12px 16px; margin-bottom:10px; }
+  .counter.has { border-color:var(--gold); }
+  .counter .nm { font-size:16px; }
+  .counter .nm small { color:var(--muted); font-size:13px; margin-right:6px; }
+  .stp { display:flex; align-items:center; gap:12px; direction:ltr; }
+  .stp button { width:34px; height:34px; border:1px solid var(--line); background:#fff; border-radius:4px; font-size:18px; color:var(--ink); cursor:pointer; }
+  .stp button:disabled { opacity:.3; }
+  .stp b { min-width:18px; text-align:center; font-weight:500; }
+  .hint { text-align:center; color:var(--muted); font-size:13px; margin-top:6px; min-height:18px; }
+  .cta { width:100%; margin-top:24px; padding:16px; border:0; border-radius:40px; background:var(--ink); color:#fff; font-size:16px; letter-spacing:.5px; cursor:pointer; }
+  .cta:disabled { background:#bdb7ae; cursor:default; }
+  .cta.light { background:#efebe4; color:var(--ink); margin-top:12px; }
+  .step { display:none; animation:fade .3s; } .step.on { display:block; }
+  @keyframes fade { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
+  .photo { width:62%; max-width:250px; aspect-ratio:3/4; margin:8px auto 4px; border-radius:6px; position:relative; overflow:hidden;
+           background:linear-gradient(160deg,#e8dccb,#cdb796); display:flex; align-items:center; justify-content:center; color:#fff; font-size:14px; text-align:center; padding:20px; }
+  .photo:before { content:""; position:absolute; inset:8px; border:1px solid rgba(255,255,255,.6); border-radius:3px; }
+
+  /* ===== אתר האירוע ===== */
+  .site { display:grid; grid-template-columns:1fr; }
+  .cover { min-height:92vh; background:radial-gradient(ellipse at center,#7d746a 0%,#4f4943 70%,#3e3934 100%); display:flex; align-items:center; justify-content:center; padding:40px 24px; position:relative; }
+  .card { width:min(420px,88vw); aspect-ratio:3/4.2; background:#f6f1e8; position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center;
+          box-shadow:0 30px 60px rgba(0,0,0,.35); }
+  .card:before { content:""; position:absolute; inset:14px; border:1px solid var(--gold); opacity:.55; }
+  .card:after { content:""; position:absolute; inset:20px; border:1px dotted var(--gold); opacity:.45; }
+  .mono { width:130px; height:130px; border-radius:50%; border:1px solid var(--gold); display:flex; align-items:center; justify-content:center; position:relative; }
+  .mono:before { content:""; position:absolute; inset:5px; border-radius:50%; border:1px solid var(--gold); opacity:.4; }
+  .mono span { font-family:"Frank Ruhl Libre",serif; font-size:44px; color:#6f6252; letter-spacing:2px; }
+  .mono em { font-family:"Cormorant Garamond",serif; font-style:italic; color:var(--gold); font-size:34px; margin:0 6px; }
+  .card .names { margin-top:26px; font-family:"Frank Ruhl Libre",serif; font-size:22px; letter-spacing:6px; color:#6f6252; }
+  .card .names-en { font-family:"Cormorant Garamond",serif; letter-spacing:5px; font-size:15px; color:var(--muted); margin-top:6px; }
+  .card .rule { width:46px; height:1px; background:var(--gold); margin:18px 0 12px; }
+  .card .d { font-size:14px; color:var(--muted); letter-spacing:2px; }
+  .scroll { position:absolute; bottom:22px; left:50%; transform:translateX(-50%); color:#e9e1d4; font-size:13px; letter-spacing:2px; text-align:center; }
+  .scroll i { display:block; font-style:normal; font-size:18px; animation:bob 1.8s infinite; }
+  @keyframes bob { 50% { transform:translateY(6px); } }
+
+  .content { background:#fff; }
+  section.s { max-width:560px; margin:0 auto; padding:70px 28px; text-align:center; border-bottom:1px solid var(--line); }
+  section.s:last-child { border-bottom:0; }
+  .icon { width:60px; height:60px; margin:0 auto 18px; color:var(--gold); }
+  .h { font-family:"Cormorant Garamond",serif; font-weight:400; font-size:44px; margin:0; line-height:1.1; color:#4a4038; }
+  .hsub { color:var(--muted); font-size:15px; margin-top:8px; }
+  .cd { display:flex; justify-content:center; gap:18px; margin-top:30px; }
+  .cd div { min-width:64px; }
+  .cd b { display:block; font-family:"Cormorant Garamond",serif; font-weight:400; font-size:48px; color:#4a4038; line-height:1; }
+  .cd span { display:block; font-size:12px; color:var(--muted); letter-spacing:3px; margin-top:8px; padding-top:6px; border-top:1px solid var(--line); }
+  .letter { color:#5d554c; font-size:16px; line-height:2; margin-top:22px; }
+  .letter p { margin:0 0 14px; }
+  .sign { font-family:"Frank Ruhl Libre",serif; font-size:19px; color:#4a4038; margin-top:8px; }
+  .draft { display:inline-block; font-size:11px; color:var(--gold); border:1px dashed var(--gold); padding:2px 8px; border-radius:10px; margin-top:14px; }
+  .dline { color:var(--muted); letter-spacing:3px; font-size:14px; }
+  .heb { font-family:"Frank Ruhl Libre",serif; font-size:18px; color:#4a4038; margin-top:6px; }
+  .place { color:var(--muted); margin-top:6px; font-size:16px; }
+  .sched { margin:28px auto 0; display:inline-grid; grid-template-columns:auto auto auto; gap:14px 14px; align-items:center; font-size:16px; }
+  .sched .bar { width:1px; height:16px; background:var(--line); }
+  .sched .t { color:var(--muted); font-family:"Cormorant Garamond",serif; font-size:20px; }
+  .btn-dark { display:inline-block; margin-top:32px; background:#1d1a17; color:#fff; padding:16px 34px; border:0; font-size:16px; cursor:pointer; text-decoration:none; }
+  .ulink { display:table; margin:18px auto 0; color:var(--ink); text-decoration:none; border-bottom:1px solid var(--ink); padding-bottom:2px; font-size:15px; }
+  .wish { background:#fbf8f4; border-radius:10px; padding:28px 22px; margin-top:24px; }
+  .wish .field { margin-bottom:12px; background:#fff; }
+  .wish button { background:#8d857b; color:#fff; border:0; padding:12px 34px; font-size:16px; cursor:pointer; }
+  .wish .ok { color:var(--gold); margin-top:12px; min-height:20px; font-size:15px; }
+  .upload { margin:24px auto 0; width:min(300px,80%); aspect-ratio:4/5; border-radius:10px; border:1px dashed var(--gold); background:var(--gold-soft);
+            display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; color:#8a6c3d; cursor:pointer; }
+  .upload b { font-size:40px; font-weight:300; line-height:1; }
+  .foot { text-align:center; color:var(--muted); font-size:13px; padding:26px; border-top:1px solid var(--line); }
+
+  @media (min-width:900px) {
+    .site { grid-template-columns:44% 56%; }
+    .content { grid-column:1; grid-row:1; max-height:100vh; overflow-y:auto; }
+    .cover { grid-column:2; grid-row:1; position:sticky; top:0; height:100vh; min-height:0; }
+    .scroll { display:none; }
+  }
+  .loading { min-height:80vh; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; color:var(--muted); }
+  .loading .ring { width:34px; height:34px; border:2px solid var(--line); border-top-color:var(--gold); border-radius:50%; animation:spin 1s linear infinite; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  .nudge { display:none; background:var(--gold-soft); border:1px solid #e6d7bd; color:#7a5f36; border-radius:4px; padding:12px 14px; text-align:center; font-size:15px; margin:-10px 0 22px; line-height:1.5; }
+  .dl { display:block; margin-top:10px; font-weight:500; color:var(--ink); }
+  .dl:empty { display:none; }
+  .langs { position:fixed; top:10px; inset-inline-end:10px; z-index:60; display:flex; gap:2px; background:rgba(255,255,255,.92); border:1px solid var(--line); border-radius:20px; padding:3px; box-shadow:0 2px 10px rgba(0,0,0,.06); }
+  .langs button { border:0; background:none; padding:5px 10px; border-radius:16px; font-size:12px; color:var(--muted); cursor:pointer; letter-spacing:.5px; }
+  .langs button.on { background:var(--ink); color:#fff; }
+  [dir="ltr"] .counter .nm, [dir="ltr"] .meta, [dir="ltr"] .letter { font-family:"Heebo",Arial,sans-serif; }
+
+  /* ===== סגנון ההזמנה (save the date) ===== */
+  :root { --gold:#1d1a17; --gold-soft:#ece6de; --ink:#1d1a17; --muted:#7a736b; --line:#e2dbd1; --bg:#f6f2ef; --paper:#fbf9f6; }
+  html, body { font-family:"Jost","Heebo",Arial,sans-serif; font-weight:300; background:var(--bg); }
+  b, strong { font-weight:500; }
+  .flow-head h1 { font-family:"Jost","Heebo",sans-serif; font-weight:400; font-size:17px; letter-spacing:4px; text-transform:uppercase; }
+  .tag { background:none; color:var(--muted); font-size:12px; letter-spacing:3px; text-transform:uppercase; padding:0; margin-bottom:10px; }
+  .q, .greet, .done h2 { font-family:"Bodoni Moda","Frank Ruhl Libre",serif; font-weight:400; font-size:30px; line-height:1.25; }
+  [dir="rtl"] .q { font-family:"Frank Ruhl Libre",serif; font-size:29px; }
+  .meta { font-size:15px; }
+  .opt { border-radius:2px; font-weight:400; }
+  .opt .ic { color:var(--ink); }
+  .opt .big { font-family:"Mrs Saint Delafield",cursive; font-size:44px; font-weight:400; line-height:1; margin:0 0 4px; }
+  .opt.sel, .tile.sel { background:#efe9e1; border-color:var(--ink); box-shadow:inset 0 0 0 1px var(--ink); color:var(--ink); }
+  .tile { border-radius:2px; font-family:"Bodoni Moda",serif; font-size:20px; }
+  .counter.has { border-color:var(--ink); }
+  .cta { border-radius:40px; font-weight:400; letter-spacing:1px; }
+  .cta.light { background:#ebe5dc; }
+  .prog i { background:var(--ink); }
+  .nudge { background:#efe9e1; border-color:var(--line); color:var(--ink); }
+  .photo { background:#111; width:68%; max-width:280px; aspect-ratio:1; border-radius:0; overflow:visible; box-shadow:0 10px 30px rgba(40,30,20,.18); padding:0; margin:22px auto 6px; }
+  .photo:before { display:none; }
+  .photo img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .tape { position:absolute; top:-16px; left:50%; width:44%; height:32px; transform:translateX(-50%) rotate(-1.5deg); background:rgba(232,226,212,.92); box-shadow:0 1px 3px rgba(0,0,0,.12); z-index:2; }
+
+  .cover { background:#ebe6df; }
+  .card { display:none; }
+  .inv { width:min(430px,86vw); height:auto; display:block; box-shadow:0 24px 50px rgba(60,45,30,.22); }
+  .scroll { color:var(--muted); }
+  .content { background:var(--bg); }
+  section.s { border-bottom:1px solid var(--line); }
+  .icon { color:var(--ink); opacity:.75; width:52px; height:52px; }
+  .h { font-family:"Mrs Saint Delafield",cursive; font-weight:400; font-size:60px; color:var(--ink); line-height:1.1; }
+  .hsub, .letter { color:#5f5952; }
+  .cd b { font-family:"Bodoni Moda",serif; font-style:italic; font-size:46px; color:var(--ink); }
+  .cd span { letter-spacing:2px; text-transform:uppercase; font-size:11px; }
+  .dline { font-family:"Bodoni Moda",serif; font-style:italic; font-size:26px; letter-spacing:0; color:var(--ink); }
+  .heb { font-family:"Jost","Heebo",sans-serif; font-size:16px; letter-spacing:1px; color:#3a3530; }
+  .place { font-family:"Jost","Heebo",sans-serif; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:var(--ink); font-size:15px; }
+  .sched .t { font-family:"Bodoni Moda",serif; font-style:italic; color:var(--ink); }
+  .sign { font-family:"Mrs Saint Delafield","Frank Ruhl Libre",cursive; font-size:34px; color:var(--ink); }
+  [dir="rtl"] .sign { font-family:"Frank Ruhl Libre",serif; font-size:20px; }
+  .btn-dark { border-radius:40px; font-weight:400; letter-spacing:1px; padding:15px 38px; }
+  .wish { background:#efe9e1; border-radius:2px; }
+  .wish button { background:var(--ink); border-radius:40px; }
+  /* פולנית: Mrs Saint Delafield חסר ą ś ń ć ę ź ż – פונט כתב יד עם כל האותיות */
+  [lang="pl"] .h, [lang="pl"] .opt .big, [lang="pl"] .sign { font-family:"Pinyon Script",cursive; }
+  [lang="pl"] .h { font-size:46px; }
+  [lang="pl"] .sign { font-size:28px; }
+  .foot { font-size:12px; letter-spacing:3px; text-transform:uppercase; }
+</style>
+</head>
+<body>
+<div class="langs" id="langs">
+  <button data-l="he">עב</button><button data-l="en">EN</button><button data-l="pl">PL</button>
+</div>
+<div class="loading" id="loading"><div class="ring"></div><div id="loadMsg">טוען... · Loading...</div></div>
+
+<div class="view" id="v-rsvp">
+  <div class="flow">
+    <div class="flow-head">
+      <button class="backbtn" id="back" aria-label="back">›</button>
+      <h1 data-t="hosts"></h1>
+    </div>
+    <div class="prog"><i id="bar" style="width:25%"></i></div>
+    <div class="nudge" id="nudge" data-t="nudge"></div>
+
+    <div class="step on" id="s1">
+      <span class="tag" data-t="tag_rsvp"></span>
+      <h2 class="q" id="greet"></h2>
+      <div class="meta"><span data-t="date"></span><br><span data-t="venue"></span><span class="dl" data-t="deadline"></span></div>
+      <div class="opts stack" id="att">
+        <button class="opt" data-v="מגיע"><span class="ic">🥂</span><b class="big" data-t="yes_big"></b><span data-t="yes_txt"></span></button>
+        <button class="opt" data-v="לא מגיע"><span class="ic">🤗</span><span data-t="no_txt"></span></button>
+      </div>
+      <div id="cntBox" style="display:none">
+        <div class="sep" data-t="how_many"></div>
+        <div class="tiles" id="tiles"></div>
+      </div>
+      <button class="cta" id="n1" disabled></button>
+      <button class="cta light" id="viewSite" data-t="view_site"></button>
+    </div>
+
+    <div class="step" id="s2">
+      <span class="tag" data-t="tag_food"></span>
+      <h2 class="q" data-t="food_q"></h2>
+      <div class="meta" data-t="food_sub"></div>
+      <div class="opts" id="food">
+        <button class="opt" data-v="yes"><span class="ic">✓</span><span data-t="yes_please"></span></button>
+        <button class="opt" data-v="no"><span class="ic">—</span><span data-t="no_thanks"></span></button>
+      </div>
+      <div id="foodBox" style="display:none">
+        <div class="sep" data-t="which"></div>
+        <div id="counters"></div>
+        <div class="hint" id="foodHint"></div>
+      </div>
+      <button class="cta" id="n2" disabled data-t="next"></button>
+    </div>
+
+    <div class="step" id="s3">
+      <span class="tag" data-t="tag_notes"></span>
+      <h2 class="q" data-t="notes_q"></h2>
+      <div class="meta" data-t="notes_sub"></div>
+      <textarea class="field" id="note" data-tp="notes_ph"></textarea>
+      <button class="cta" id="n3" disabled data-t="send"></button>
+      <button class="cta light" id="skip" data-t="skip"></button>
+    </div>
+
+    <div class="step" id="s4">
+      <span class="tag" data-t="tag_thanks"></span>
+      <h2 class="q" id="thxT"></h2>
+      <div class="meta" id="thxM"></div>
+      <div class="photo" id="photo" style="display:none"></div>
+      <button class="cta" id="toSite" data-t="to_site"></button>
+      <button class="cta light" id="edit" data-t="edit"></button>
+    </div>
+    <div class="hint" id="err" style="color:#a0574f"></div>
+  </div>
+</div>
+
+<div class="view" id="v-site">
+  <div class="site">
+    <div class="cover">
+      <img class="inv" id="invImg" alt="Save the date">
+      <div class="card">
+        <div class="mono"><span id="mA"></span><em>&amp;</em><span id="mB"></span></div>
+        <div class="names" data-t="hosts"></div>
+        <div class="names-en" id="cHostsEn"></div>
+        <div class="rule"></div>
+        <div class="d" id="cDate" dir="ltr"></div>
+      </div>
+      <div class="scroll"><span data-t="scroll"></span><i>⌄</i></div>
+    </div>
+
+    <div class="content">
+      <section class="s">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M24 50 C10 40 6 32 6 24 a10 10 0 0 1 18-6 a10 10 0 0 1 18 6 c0 8-4 16-18 26z"/><path d="M40 52 C28 44 24 37 24 30 a9 9 0 0 1 16-5 a9 9 0 0 1 16 5 c0 7-4 14-16 22z"/></svg>
+        <h2 class="h" data-t="h_cd"></h2>
+        <div class="hsub" data-t="cd_sub"></div>
+        <div class="cd">
+          <div><b id="cdD">0</b><span data-t="days"></span></div>
+          <div><b id="cdH">0</b><span data-t="hours"></span></div>
+          <div><b id="cdM">0</b><span data-t="minutes"></span></div>
+          <div><b id="cdS">0</b><span data-t="seconds"></span></div>
+        </div>
+      </section>
+
+      <section class="s">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="32" cy="40" r="15"/><circle cx="32" cy="40" r="12"/><path d="M24 22 l4-6 h8 l4 6 l-8 6z M24 22 h16"/></svg>
+        <h2 class="h" data-t="h_letter"></h2>
+        <div class="letter" id="letter"></div>
+        <div class="sign" data-t="sign"></div>
+      </section>
+
+      <section class="s">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M14 58 V22 Q32 2 50 22 V58"/><path d="M14 22 Q20 36 22 58 M50 22 Q44 36 42 58"/><circle cx="20" cy="16" r="2.5"/><circle cx="32" cy="9" r="2.5"/><circle cx="44" cy="16" r="2.5"/><circle cx="26" cy="11" r="2"/><circle cx="38" cy="11" r="2"/></svg>
+        <div class="dline" id="sDate" dir="ltr"></div>
+        <h2 class="h" style="margin-top:8px" data-t="h_day"></h2>
+        <div class="heb" data-t="date"></div>
+        <div class="place" data-t="venue"></div>
+        <div class="sched">
+          <span data-t="reception"></span><span class="bar"></span><span class="t" id="sRec"></span>
+          <span data-t="chuppah"></span><span class="bar"></span><span class="t" id="sChu"></span>
+        </div>
+        <div><button class="btn-dark" id="toRsvp" data-t="rsvp_btn"></button></div>
+        <a class="ulink" id="waze" target="_blank" data-t="waze"></a>
+      </section>
+
+      <section class="s">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="8" y="22" width="40" height="28" rx="2"/><path d="M8 24 l20 14 l20-14"/><path d="M22 18 l30-6 l4 22 l-8 1.5"/></svg>
+        <h2 class="h" data-t="h_wish"></h2>
+        <div class="hsub" data-t="wish_sub"></div>
+        <div class="wish">
+          <input class="field" id="wn" data-tp="name_ph">
+          <textarea class="field" id="wt" data-tp="wish_ph"></textarea>
+          <button id="ws" data-t="send"></button>
+          <div class="ok" id="wok"></div>
+        </div>
+      </section>
+
+      <div class="foot" id="foot"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var API = 'https://script.google.com/macros/s/AKfycbwP0NJwjKkHnSzTK7ik8GCCUK4cxQJRD1Dss-JbRq_muaHP_Izr0iTsSpOIkxV5cvoKUQ/exec';
+
+  /* ================== טקסטים בשלוש שפות ================== */
+  var T = {
+    he: {
+      h_cd: 'counting the days', h_letter: 'dear family & friends', h_day: 'the wedding day', h_wish: 'wish us something', yes_big: 'yes!',
+      hosts: 'טליה & נתנאל',
+      date: 'יום חמישי, י״ט באדר א׳ תשפ״ז · 25.2.2027',
+      venue: 'יער - מושב אורה',
+      tag_rsvp: 'אישור הגעה',
+      view_site: 'לצפייה בהזמנה המלאה',
+      deadline: '',
+      nudge: 'עוד לא שמענו ממך 🙂 נשמח לתשובה, זה לוקח 10 שניות',
+      nudge_p: 'עוד לא שמענו מכם 🙂 נשמח לתשובה, זה לוקח 10 שניות',
+      greet: '{name}, תגיע/י לחגוג איתנו?',
+      greet_p: '{name}, תגיעו לחגוג איתנו?',
+      yes_txt_p: 'מגיעים לחגוג את האיחוד ההיסטורי בין ישראל לפולין',
+      no_txt_p: 'לא יכולים להגיע, אבל שולחים חיבוקים ענקיים',
+      thx_yes_one_p: 'רשמנו אתכם. מוזמנים להמשיך לאתר האירוע לכל הפרטים',
+      yes_txt: 'מגיע/ה לחגוג את האיחוד ההיסטורי בין ישראל לפולין',
+      no_txt: 'לא יכול/ה להגיע, אבל שולח/ת חיבוקים ענקיים',
+      how_many: 'כמה תהיו?',
+      next: 'המשך', send: 'שליחה', sending: 'שולח...',
+      tag_food: 'העדפות מזון', food_q: 'יש לכם העדפות מזון?', food_sub: 'כדי שנדאג שכולם ייהנו',
+      yes_please: 'כן, בבקשה', no_thanks: 'לא, תודה', which: 'איזה העדפות?',
+      diet: { 'צמחוני': 'צמחוני', 'טבעוני': 'טבעוני', 'ללא גלוטן': 'ללא גלוטן', 'מנת ילדים': 'מנת ילדים' },
+      diet_max: 'סה״כ המנות המיוחדות לא יכול לעבור את מספר המגיעים ({n})',
+      diet_reset: 'עדכנו שוב את המנות לפי מספר המגיעים',
+      tag_notes: 'הערות', notes_q: 'תרצו להוסיף משהו?', notes_sub: 'אלרגיות, נגישות, או סתם מילה טובה',
+      notes_ph: 'הקלידו כאן', skip: 'דלג',
+      tag_thanks: 'תודה!',
+      thx_yes_t: 'איזה כיף, נתראה שם!',
+      thx_yes_one: 'רשמנו אותך. מוזמנים להמשיך לאתר האירוע לכל הפרטים',
+      thx_yes_many: 'רשמנו {n} מגיעים. מוזמנים להמשיך לאתר האירוע לכל הפרטים',
+      thx_no_t: 'תודה על החיבוקים 🤍', thx_no_m: 'נתגעגע! אפשר עדיין להציץ באתר האירוע',
+      to_site: 'לאתר האירוע', edit: '‹ עריכת תשובות',
+      err: 'משהו השתבש, נסו שוב.', load_err: 'לא הצלחנו לטעון את הדף. נסו לרענן בעוד רגע.',
+      scroll: 'גללו למטה', cd_sub: 'עוד רגע קטן ואנחנו שם',
+      days: 'ימים', hours: 'שעות', minutes: 'דקות', seconds: 'שניות',
+      letter: [
+        'אחרי דרך משותפת שהתחילה ברגע אחד קטן והפכה לכל העולם שלנו, אנחנו שמחים ומתרגשים להזמין אתכם לחגוג איתנו את היום שבו נתחיל יחד את הפרק הבא.',
+        'אתם האנשים שליוו אותנו לאורך הדרך, ולא היינו רוצים לעמוד מתחת לחופה מבלי לראותכם מסביב ❤️',
+        'בואו לשמוח, להתרגש, לרקוד ולהרים איתנו כוסית.'
+      ],
+      sign: 'באהבה, טליה ונתנאל',
+      reception: 'קבלת פנים', chuppah: 'חופה וקידושין',
+      rsvp_btn: 'לעדכון הגעה', waze: 'ניווט ב-Waze',
+      wish_sub: 'השאירו לנו כמה מילים מהלב, שיישארו איתנו למזכרת תמיד.',
+      name_ph: 'שם', wish_ph: 'הוסיפו ברכה כאן...',
+      wish_empty: 'כתבו ברכה קטנה 🙂', wish_ok: 'תודה{name}! הברכה נשמרה 🤍'
+    },
+    en: {
+      h_cd: 'counting the days', h_letter: 'dear family & friends', h_day: 'the wedding day', h_wish: 'wish us something', yes_big: 'yes!',
+      hosts: 'Natalia & Netanel',
+      hostsEn: 'NATALIA & NETANEL',
+      mono: ['N', 'N'],
+      date: 'Thursday, February 25, 2027',
+      venue: "Ya'ar – Moshav Ora",
+      tag_rsvp: 'RSVP',
+      view_site: 'View the full invitation',
+      deadline: '',
+      nudge: "We haven't heard from you yet 🙂 It only takes 10 seconds",
+      greet: '{name}, will you celebrate with us?',
+      yes_txt_p: "We're coming to celebrate the historic union of Israel and Poland",
+      no_txt_p: "We can't make it, but sending huge hugs",
+      yes_txt: "I'm coming to celebrate the historic union of Israel and Poland",
+      no_txt: "Can't make it, but sending huge hugs",
+      how_many: 'How many of you?',
+      next: 'Continue', send: 'Send', sending: 'Sending...',
+      tag_food: 'Dietary preferences', food_q: 'Any dietary preferences?', food_sub: 'So we can make sure everyone enjoys',
+      yes_please: 'Yes, please', no_thanks: 'No, thanks', which: 'Which ones?',
+      diet: { 'צמחוני': 'Vegetarian', 'טבעוני': 'Vegan', 'ללא גלוטן': 'Gluten-free', 'מנת ילדים': "Kids' meal" },
+      diet_max: "Special meals can't exceed the number of guests ({n})",
+      diet_reset: 'Please update the meals to match the number of guests',
+      tag_notes: 'Notes', notes_q: 'Anything to add?', notes_sub: 'Allergies, accessibility, or just a kind word',
+      notes_ph: 'Type here', skip: 'Skip',
+      tag_thanks: 'Thank you!',
+      thx_yes_t: 'Yay, see you there!',
+      thx_yes_one: "You're on the list. Continue to the event site for all the details",
+      thx_yes_many: "We've noted {n} guests. Continue to the event site for all the details",
+      thx_no_t: 'Thanks for the hugs 🤍', thx_no_m: "We'll miss you! You can still check out the event site",
+      to_site: 'To the event site', edit: '‹ Edit answers',
+      err: 'Something went wrong, please try again.', load_err: "We couldn't load the page. Please refresh in a moment.",
+      scroll: 'Scroll down', cd_sub: 'Almost there',
+      days: 'Days', hours: 'Hours', minutes: 'Minutes', seconds: 'Seconds',
+      letter: [
+        'After a journey together that began with one small moment and became our whole world, we are happy and excited to invite you to celebrate with us the day we begin our next chapter together.',
+        "You are the people who have been with us all along the way, and we couldn't imagine standing under the chuppah without seeing your faces around us.",
+        'Come celebrate, dance and raise a glass with us.'
+      ],
+      sign: 'With love, Natalia & Netanel',
+      reception: 'Reception', chuppah: 'Chuppah ceremony',
+      rsvp_btn: 'Update RSVP', waze: 'Navigate with Waze',
+      wish_sub: 'Leave us a few words from the heart, to keep with us forever.',
+      name_ph: 'Name', wish_ph: 'Write your wishes here...',
+      wish_empty: 'Write a little wish 🙂', wish_ok: 'Thank you{name}! Your wish was saved 🤍'
+    },
+    pl: {
+      h_cd: 'odliczamy dni', h_letter: 'kochani bliscy', h_day: 'dzień ślubu', h_wish: 'złóżcie nam życzenia', yes_big: 'tak!',
+      hosts: 'Natalia & Netanel',
+      hostsEn: 'NATALIA & NETANEL',
+      mono: ['N', 'N'],
+      date: 'Czwartek, 25 lutego 2027',
+      venue: "Ya'ar – moszaw Ora",
+      tag_rsvp: 'Potwierdzenie obecności',
+      view_site: 'Zobacz zaproszenie',
+      deadline: 'Prosimy o potwierdzenie do 21.01.2027',
+      nudge: 'Jeszcze nie dostaliśmy od Ciebie odpowiedzi 🙂 To zajmie tylko 10 sekund',
+      nudge_p: 'Jeszcze nie dostaliśmy od Was odpowiedzi 🙂 To zajmie tylko 10 sekund',
+      greet: 'Nasz wielki dzień coraz bliżej! Czy będziesz świętować z nami?',
+      greet_p: 'Nasz wielki dzień coraz bliżej! Czy będziecie świętować z nami?',
+      yes_txt_p: 'Z radością będziemy z Wami w tym wyjątkowym dniu!',
+      no_txt_p: 'Nie możemy przyjść, ale przesyłamy ogromne uściski',
+      thx_yes_one_p: 'Jesteście na liście. Zapraszamy na stronę wydarzenia po wszystkie szczegóły',
+      yes_txt: 'Z radością będę z Wami w tym wyjątkowym dniu!',
+      no_txt: 'Nie mogę przyjść, ale przesyłam ogromne uściski',
+      how_many: 'Ile osób przyjdzie?',
+      next: 'Dalej', send: 'Wyślij', sending: 'Wysyłanie...',
+      tag_food: 'Preferencje żywieniowe', food_q: 'Macie jakieś preferencje żywieniowe?', food_sub: 'Abyśmy mogli zadbać o każdego',
+      yes_please: 'Tak, poproszę', no_thanks: 'Nie, dziękuję', which: 'Jakie?',
+      diet: { 'צמחוני': 'Wegetariańskie', 'טבעוני': 'Wegańskie', 'ללא גלוטן': 'Bezglutenowe', 'מנת ילדים': 'Posiłek dla dziecka' },
+      diet_max: 'Liczba specjalnych posiłków nie może przekroczyć liczby gości ({n})',
+      diet_reset: 'Zaktualizuj posiłki zgodnie z liczbą gości',
+      tag_notes: 'Uwagi', notes_q: 'Chcesz coś dodać?', notes_sub: 'Alergie, dostępność albo po prostu miłe słowo',
+      notes_ph: 'Wpisz tutaj', skip: 'Pomiń',
+      tag_thanks: 'Dziękujemy!',
+      thx_yes_t: 'Super, do zobaczenia!',
+      thx_yes_one: 'Jesteś na liście. Zapraszamy na stronę wydarzenia po wszystkie szczegóły',
+      thx_yes_many: 'Zapisaliśmy liczbę gości: {n}. Zapraszamy na stronę wydarzenia po wszystkie szczegóły',
+      thx_no_t: 'Dziękujemy za uściski 🤍', thx_no_m: 'Będziemy tęsknić! Wciąż możesz zajrzeć na stronę wydarzenia',
+      to_site: 'Strona wydarzenia', edit: '‹ Edytuj odpowiedzi',
+      err: 'Coś poszło nie tak, spróbuj ponownie.', load_err: 'Nie udało się załadować strony. Odśwież za chwilę.',
+      scroll: 'Przewiń w dół', cd_sub: 'Już niedługo',
+      days: 'Dni', hours: 'Godziny', minutes: 'Minuty', seconds: 'Sekundy',
+      letter: [
+        'Nasza wspólna historia zaczęła się od jednej, niepozornej chwili, która z czasem stała się początkiem całego naszego świata. Dziś, z sercami pełnymi miłości, radości i wzruszenia, pragniemy zaprosić Was do wspólnego świętowania dnia, w którym rozpoczniemy kolejny rozdział naszej historii.',
+        'To Wy towarzyszyliście nam przez całą tę drogę, dlatego nie wyobrażamy sobie tego dnia bez Was.',
+        'Mamy nadzieję, że wspólnie będziemy cieszyć się, wzruszać, tańczyć i wznosić nieskończone toasty!'
+      ],
+      sign: 'Z miłością, Natalia i Netanel',
+      reception: 'Powitanie gości', chuppah: 'Ceremonia ślubna (chupa)',
+      rsvp_btn: 'Potwierdź obecność', waze: 'Nawiguj w Waze',
+      wish_sub: 'Zostaw nam kilka słów od serca – zachowamy je na zawsze.',
+      name_ph: 'Imię', wish_ph: 'Napisz tutaj życzenia...',
+      wish_empty: 'Napisz krótkie życzenia 🙂', wish_ok: 'Dziękujemy{name}! Życzenia zapisane 🤍'
+    }
+  };
+
+  /* ================== מנגנון ================== */
+  var g, cfg, L = 'he', onLang = [];
+  var params = new URLSearchParams(location.search);
+  // שתי גרסאות: עברית (talianetanel.love/) ובינלאומית – אנגלית + פולנית (talianetanel.love/i/)
+  var INTL = location.pathname.indexOf('/i/') >= 0;
+  var BASE = INTL ? '../' : '';
+  var ALLOWED = INTL ? ['en', 'pl'] : ['he'];
+  function $(id) { return document.getElementById(id); }
+  function txt(id, t) { $(id).textContent = t; }
+  function t(k, vars) {
+    if (g && g.plural && T[L] && T[L][k + '_p'] != null) k = k + '_p';
+    var s = (T[L] && T[L][k] != null) ? T[L][k] : T.he[k];
+    if (typeof s === 'string' && vars) for (var v in vars) s = s.split('{' + v + '}').join(vars[v]);
+    return s;
+  }
+  function setLang(l) {
+    if (ALLOWED.indexOf(l) < 0) l = ALLOWED[0];
+    L = l;
+    try { localStorage.setItem('lang', l); } catch (e) {}
+    document.documentElement.lang = l;
+    document.documentElement.dir = l === 'he' ? 'rtl' : 'ltr';
+    document.querySelectorAll('[data-t]').forEach(function (e) { e.textContent = t(e.getAttribute('data-t')); });
+    document.querySelectorAll('[data-tp]').forEach(function (e) { e.placeholder = t(e.getAttribute('data-tp')); });
+    document.querySelectorAll('#langs button').forEach(function (b) { b.classList.toggle('on', b.dataset.l === l); });
+    $('back').textContent = l === 'he' ? '›' : '‹';
+    $('letter').innerHTML = '';
+    t('letter').forEach(function (p) { var e = document.createElement('p'); e.textContent = p; $('letter').appendChild(e); });
+    document.title = t('hosts');
+    onLang.forEach(function (f) { f(); });
+  }
+  document.querySelectorAll('#langs button').forEach(function (b) { b.onclick = function () { setLang(b.dataset.l); }; });
+
+  function api(action, data) {
+    var url = API + '?action=' + action + (data ? '&d=' + encodeURIComponent(JSON.stringify(data)) : '');
+    if (action === 'load' && params.get('g')) url += '&g=' + encodeURIComponent(params.get('g'));
+    return fetch(url).then(function (r) { return r.json(); }).then(function (j) {
+      if (!j.ok) throw new Error(j.error || 'error');
+      return j;
+    });
+  }
+
+  var stored = null; try { stored = localStorage.getItem('lang'); } catch (e) {}
+  document.querySelectorAll('#langs button').forEach(function (b) { if (ALLOWED.indexOf(b.dataset.l) < 0) b.style.display = 'none'; });
+  if (ALLOWED.length < 2) $('langs').style.display = 'none';
+  $('invImg').src = BASE + (INTL ? 'invite.jpg' : 'invite-he.jpg');
+  setLang(params.get('lang') || (ALLOWED.indexOf(stored) >= 0 ? stored : '') || ALLOWED[0]);
+
+  api('load').then(function (j) {
+    g = j.guest; cfg = j.config;
+    setLang(!params.get('lang') && g && ALLOWED.indexOf(g.lang) >= 0 ? g.lang : L);
+    $('loading').style.display = 'none';
+    main();
+  }).catch(function () { txt('loadMsg', t('load_err')); });
+
+  function show(v) {
+    document.querySelectorAll('.view').forEach(function (x) { x.classList.toggle('on', x.id === 'v-' + v); });
+    window.scrollTo(0, 0);
+  }
+
+  function main() {
+    function hostsLine() { var mo = (T[L] && T[L].mono) || [cfg.monoA, cfg.monoB]; txt('mA', mo[0]); txt('mB', mo[1]); txt('cHostsEn', (T[L] && T[L].hostsEn) || cfg.hostsEn); txt('foot', t('hosts') + ' · ' + cfg.dateNum.slice(-4)); }
+    hostsLine(); onLang.push(hostsLine);
+    txt('cDate', cfg.dateNum.split('.').join(' · '));
+    txt('sDate', '— ' + cfg.dateNum + ' —');
+    txt('sRec', cfg.reception); txt('sChu', cfg.chuppah);
+    if (cfg.waze) $('waze').href = cfg.waze; else $('waze').style.display = 'none';
+    cfg.photo = cfg.photo || (BASE + 'couple.jpg');
+    if (cfg.photo) {
+      var tp = document.createElement('div'); tp.className = 'tape'; $('photo').appendChild(tp);
+      var img = document.createElement('img'); img.src = cfg.photo; img.alt = '';
+      $('photo').appendChild(img); $('photo').style.display = '';
+    }
+
+    var target = new Date(cfg.start).getTime();
+    function tick() {
+      var d = Math.max(0, target - Date.now());
+      txt('cdD', Math.floor(d / 864e5)); txt('cdH', Math.floor(d / 36e5) % 24);
+      txt('cdM', Math.floor(d / 6e4) % 60); txt('cdS', Math.floor(d / 1e3) % 60);
+    }
+    tick(); setInterval(tick, 1000);
+
+    $('ws').onclick = function () {
+      var name = $('wn').value.trim(), w = $('wt').value.trim();
+      if (!w) { txt('wok', t('wish_empty')); return; }
+      $('ws').disabled = true; txt('wok', t('sending'));
+      api('wish', { name: name || (g ? g.name : ''), text: w.slice(0, 1000) })
+        .then(function () { txt('wok', t('wish_ok', { name: name ? ', ' + name : '' })); $('wn').value = ''; $('wt').value = ''; $('ws').disabled = false; })
+        .catch(function () { txt('wok', t('err')); $('ws').disabled = false; });
+    };
+
+    if (!g) { $('toRsvp').style.display = 'none'; show('site'); return; }
+    initFlow();
+  }
+
+  function initFlow() {
+    var st = { step: 1, att: '', count: 0, food: '', diet: {}, note: '', done: null };
+    var MAX = g.max || 6;
+    cfg.diets.forEach(function (k) { st.diet[k] = (g.diet && g.diet[k]) || 0; });
+
+    function go(n) {
+      st.step = n;
+      for (var i = 1; i <= 4; i++) $('s' + i).classList.toggle('on', i === n);
+      $('bar').style.width = (n * 25) + '%';
+      $('back').style.visibility = (n > 1 && n < 4) ? 'visible' : 'hidden';
+      $('nudge').style.display = (n === 1 && params.get('r') && !st.done && !g.status) ? 'block' : 'none';
+      txt('err', '');
+      window.scrollTo(0, 0);
+    }
+    $('back').onclick = function () { go(st.step === 3 && st.att === 'מגיע' ? 2 : 1); };
+
+    for (var i = 1; i <= MAX; i++) (function (n) {
+      var b = document.createElement('button'); b.className = 'tile'; b.textContent = n;
+      b.onclick = function () { st.count = n; r1(); };
+      $('tiles').appendChild(b);
+    })(i);
+    document.querySelectorAll('#att .opt').forEach(function (b) { b.onclick = function () { st.att = b.dataset.v; r1(); }; });
+    function r1() {
+      document.querySelectorAll('#att .opt').forEach(function (b) { b.classList.toggle('sel', b.dataset.v === st.att); });
+      $('cntBox').style.display = st.att === 'מגיע' ? '' : 'none';
+      document.querySelectorAll('.tile').forEach(function (b) { b.classList.toggle('sel', +b.textContent === st.count); });
+      $('n1').disabled = !st.att || (st.att === 'מגיע' && !st.count);
+      txt('n1', st.att === 'לא מגיע' ? t('send') : t('next'));
+    }
+    $('n1').onclick = function () { if (st.att === 'לא מגיע') send(); else go(2); };
+
+    function total() { var s = 0; for (var k in st.diet) s += st.diet[k]; return s; }
+    var counterUpd = [], nameEls = [];
+    cfg.diets.forEach(function (k) {
+      var row = document.createElement('div'); row.className = 'counter';
+      var nm = document.createElement('span'); nm.className = 'nm'; nameEls.push([nm, k]);
+      var stp = document.createElement('span'); stp.className = 'stp';
+      var minus = document.createElement('button'); minus.textContent = '−';
+      var val = document.createElement('b');
+      var plus = document.createElement('button'); plus.textContent = '+';
+      stp.appendChild(minus); stp.appendChild(val); stp.appendChild(plus);
+      row.appendChild(nm); row.appendChild(stp);
+      function upd() { val.textContent = st.diet[k]; row.classList.toggle('has', st.diet[k] > 0); minus.disabled = st.diet[k] === 0; r2(); }
+      minus.onclick = function () { if (st.diet[k] > 0) { st.diet[k]--; upd(); } };
+      plus.onclick = function () {
+        if (total() < st.count) { st.diet[k]++; upd(); }
+        else txt('foodHint', t('diet_max', { n: st.count }));
+      };
+      counterUpd.push(upd);
+      $('counters').appendChild(row);
+    });
+    function dietNames() { nameEls.forEach(function (p) { p[0].textContent = (t('diet') || {})[p[1]] || p[1]; }); }
+    document.querySelectorAll('#food .opt').forEach(function (b) { b.onclick = function () { st.food = b.dataset.v; r2(); }; });
+    function r2() {
+      document.querySelectorAll('#food .opt').forEach(function (b) { b.classList.toggle('sel', b.dataset.v === st.food); });
+      $('foodBox').style.display = st.food === 'yes' ? '' : 'none';
+      if (total() < st.count) txt('foodHint', '');
+      $('n2').disabled = !st.food || (st.food === 'yes' && total() === 0);
+    }
+    $('n2').onclick = function () {
+      if (total() > st.count) {
+        cfg.diets.forEach(function (k) { st.diet[k] = 0; }); counterUpd.forEach(function (f) { f(); });
+        txt('foodHint', t('diet_reset')); return;
+      }
+      go(3);
+    };
+
+    $('note').oninput = function () { st.note = this.value; $('n3').disabled = !this.value.trim(); };
+    $('n3').onclick = send;
+    $('skip').onclick = function () { st.note = ''; $('note').value = ''; send(); };
+
+    function setBusy(b) { ['n1', 'n3', 'skip'].forEach(function (id) { $(id).disabled = b; }); }
+    function send() {
+      setBusy(true); txt('err', '');
+      var diet = (st.att === 'מגיע' && st.food === 'yes') ? st.diet : {};
+      api('rsvp', { id: g.id, status: st.att, count: st.count, diet: diet, note: st.note.slice(0, 800) })
+        .then(function (r) { setBusy(false); thanks(r.status, r.count); })
+        .catch(function (e) { setBusy(false); r1(); txt('err', t('err') + ' (' + (e && e.message ? e.message : e) + ')'); });
+    }
+
+    function thanksText() {
+      if (!st.done) return;
+      if (st.done.status === 'מגיע') {
+        txt('thxT', t('thx_yes_t'));
+        txt('thxM', st.done.n > 1 ? t('thx_yes_many', { n: st.done.n }) : t('thx_yes_one'));
+      } else {
+        txt('thxT', t('thx_no_t')); txt('thxM', t('thx_no_m'));
+      }
+    }
+    function thanks(status, n) { st.done = { status: status, n: n }; thanksText(); go(4); }
+    $('toSite').onclick = function () { show('site'); };
+    $('viewSite').onclick = function () { show('site'); };
+    $('edit').onclick = function () { go(1); };
+    $('toRsvp').onclick = function () { show('rsvp'); go(1); };
+
+    function greet() { txt('greet', t('greet', { name: g.name })); }
+    onLang.push(function () { greet(); dietNames(); r1(); thanksText(); });
+    greet(); dietNames();
+
+    if (g.status === 'מגיע' || g.status === 'לא מגיע') {
+      st.att = g.status; st.count = g.count || 0;
+      if (total() > 0) st.food = 'yes';
+      $('note').value = g.note || ''; st.note = g.note || ''; $('n3').disabled = !st.note.trim();
+      counterUpd.forEach(function (f) { f(); });
+      r1(); r2();
+      show('rsvp'); thanks(g.status, g.count);
+    } else {
+      counterUpd.forEach(function (f) { f(); });
+      r1(); r2();
+      show('rsvp'); go(1);
+    }
+  }
+</script>
+</body>
+</html>
