@@ -166,6 +166,9 @@
   .cover { background:#ebe6df; }
   .card { display:none; }
   .inv { width:min(430px,86vw); height:auto; display:block; box-shadow:0 24px 50px rgba(60,45,30,.22); }
+  .cover.v2 { padding-left:14px; padding-right:14px; }
+  .inv.wide { width:min(640px, calc(100vw - 28px)); box-shadow:none; filter:drop-shadow(0 14px 24px rgba(60,45,30,.18)); }
+  .inv.pol { width:min(400px, calc(100vw - 60px)); box-shadow:none; filter:drop-shadow(0 14px 24px rgba(60,45,30,.18)); }
   .scroll { color:var(--muted); }
   .content { background:var(--bg); }
   section.s { border-bottom:1px solid var(--line); }
@@ -516,7 +519,14 @@
   var stored = null; try { stored = localStorage.getItem('lang'); } catch (e) {}
   document.querySelectorAll('#langs button').forEach(function (b) { if (ALLOWED.indexOf(b.dataset.l) < 0) b.style.display = 'none'; });
   if (ALLOWED.length < 2) $('langs').style.display = 'none';
-  $('invImg').src = BASE + (INTL ? 'invite.jpg' : 'invite-he.jpg');
+  // תמונת פתיחה: illu = ההזמנה המאוירת, photo = הפולארויד, old = ההזמנה הקודמת. לבדיקה: ?cover=photo
+  var COVER = params.get('cover') || 'illu';
+  if (COVER === 'old') $('invImg').src = BASE + (INTL ? 'invite.jpg' : 'invite-he.jpg');
+  else {
+    $('invImg').src = BASE + (COVER === 'photo' ? 'polaroid.webp' : (INTL ? 'illu.webp' : 'illu-he.webp'));
+    $('invImg').className = 'inv ' + (COVER === 'photo' ? 'pol' : 'wide');
+    document.querySelector('.cover').classList.add('v2');
+  }
   setLang(params.get('lang') || (ALLOWED.indexOf(stored) >= 0 ? stored : '') || ALLOWED[0]);
 
   api('load').then(function (j) {
