@@ -8,7 +8,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Save the date · טליה & נתנאל מתחתנים 💍">
 <meta property="og:description" content="יום חמישי, 25.2.2027 · יער - מושב אורה · לחצו לאישור הגעה">
-<meta property="og:image" content="https://talianetanel.love/og-he.jpg">
+<meta property="og:image" content="https://talianetanel.love/og2-he.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
@@ -307,6 +307,7 @@
         </div>
         <div><button class="btn-dark" id="toRsvp" data-t="rsvp_btn"></button></div>
         <a class="ulink" id="waze" target="_blank" data-t="waze"></a>
+        <a class="ulink" id="insta" href="https://www.instagram.com/yaar_events/" target="_blank" rel="noopener" data-t="insta" style="margin-top:12px"></a>
       </section>
 
       <section class="s">
@@ -373,7 +374,7 @@
       ],
       sign: 'באהבה, טליה ונתנאל',
       reception: 'קבלת פנים', chuppah: 'חופה וקידושין',
-      rsvp_btn: 'לעדכון הגעה', waze: 'ניווט ב-Waze',
+      rsvp_btn: 'לעדכון הגעה', waze: 'ניווט ב-Waze', insta: 'המקום באינסטגרם',
       wish_sub: 'השאירו לנו כמה מילים מהלב, שיישארו איתנו למזכרת תמיד.',
       name_ph: 'שם', wish_ph: 'הוסיפו ברכה כאן...',
       wish_empty: 'כתבו ברכה קטנה 🙂', wish_ok: 'תודה{name}! הברכה נשמרה 🤍'
@@ -419,7 +420,7 @@
       ],
       sign: 'With love, Natalia & Netanel',
       reception: 'Reception', chuppah: 'Chuppah ceremony',
-      rsvp_btn: 'Update RSVP', waze: 'Navigate with Waze',
+      rsvp_btn: 'Update RSVP', waze: 'Navigate with Waze', insta: 'The venue on Instagram',
       wish_sub: 'Leave us a few words from the heart, to keep with us forever.',
       name_ph: 'Name', wish_ph: 'Write your wishes here...',
       wish_empty: 'Write a little wish 🙂', wish_ok: 'Thank you{name}! Your wish was saved 🤍'
@@ -468,7 +469,7 @@
       ],
       sign: 'Z miłością, Natalia i Netanel',
       reception: 'Powitanie gości', chuppah: 'Ceremonia ślubna (chupa)',
-      rsvp_btn: 'Potwierdź obecność', waze: 'Nawiguj w Waze',
+      rsvp_btn: 'Potwierdź obecność', waze: 'Nawiguj w Waze', insta: 'Miejsce na Instagramie',
       wish_sub: 'Zostaw nam kilka słów od serca – zachowamy je na zawsze.',
       name_ph: 'Imię', wish_ph: 'Napisz tutaj życzenia...',
       wish_empty: 'Napisz krótkie życzenia 🙂', wish_ok: 'Dziękujemy{name}! Życzenia zapisane 🤍'
@@ -519,9 +520,10 @@
   var stored = null; try { stored = localStorage.getItem('lang'); } catch (e) {}
   document.querySelectorAll('#langs button').forEach(function (b) { if (ALLOWED.indexOf(b.dataset.l) < 0) b.style.display = 'none'; });
   if (ALLOWED.length < 2) $('langs').style.display = 'none';
-  // תמונת פתיחה: illu = ההזמנה המאוירת, photo = הפולארויד, old = ההזמנה הקודמת. לבדיקה: ?cover=photo
-  var COVER = params.get('cover') || 'illu';
-  if (COVER === 'old') $('invImg').src = BASE + (INTL ? 'invite.jpg' : 'invite-he.jpg');
+  // תמונת פתיחה: std = ההזמנה החדשה (ברירת מחדל), illu = המאוירת, photo = הפולארויד, old = ההזמנה הקודמת. לבדיקה: ?cover=photo
+  var COVER = params.get('cover') || 'std';
+  if (COVER === 'std') $('invImg').src = BASE + (INTL ? 'invite-std.jpg' : 'invite-std-he.jpg');
+  else if (COVER === 'old') $('invImg').src = BASE + (INTL ? 'invite.jpg' : 'invite-he.jpg');
   else {
     $('invImg').src = BASE + (COVER === 'photo' ? (INTL ? 'polaroid.webp' : 'polaroid-he.webp') : (INTL ? 'illu.webp' : 'illu-he.webp'));
     $('invImg').className = 'inv ' + (COVER === 'photo' ? 'pol' : 'wide');
@@ -548,7 +550,7 @@
     txt('sDate', '— ' + cfg.dateNum + ' —');
     txt('sRec', cfg.reception); txt('sChu', cfg.chuppah);
     if (cfg.waze) $('waze').href = cfg.waze; else $('waze').style.display = 'none';
-    cfg.photo = cfg.photo || (BASE + 'couple.jpg');
+    cfg.photo = cfg.photo || (BASE + 'couple2.jpg');
     if (cfg.photo) {
       var tp = document.createElement('div'); tp.className = 'tape'; $('photo').appendChild(tp);
       var img = document.createElement('img'); img.src = cfg.photo; img.alt = '';
