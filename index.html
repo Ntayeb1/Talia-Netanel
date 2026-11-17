@@ -328,7 +328,10 @@
 </div>
 
 <script>
-  var API = 'https://script.google.com/macros/s/AKfycbwP0NJwjKkHnSzTK7ik8GCCUK4cxQJRD1Dss-JbRq_muaHP_Izr0iTsSpOIkxV5cvoKUQ/exec';
+  // שני גיליונות: הרגיל, ושל נטליה (קודי אורחים שמתחילים ב-pl)
+  var API_MAIN = 'https://script.google.com/macros/s/AKfycbwP0NJwjKkHnSzTK7ik8GCCUK4cxQJRD1Dss-JbRq_muaHP_Izr0iTsSpOIkxV5cvoKUQ/exec';
+  var API_PL = 'https://script.google.com/macros/s/AKfycbxME2KUD7ZrDc3kjNujtUY_YkKXWBySRbO-yU0VQRITm27vHf_oMuQ2kbY0JCy6h_xKmA/exec';
+  var API = /^pl/i.test(new URLSearchParams(location.search).get('g') || '') ? API_PL : API_MAIN;
 
   /* ================== טקסטים בשלוש שפות ================== */
   var T = {
